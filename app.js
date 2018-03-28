@@ -11,7 +11,6 @@ const webpackConfig = require('./webpack.config');
 // app.use('/dist', publicPath);
 app.get('/activity/index', function(req, res, next) {
   //res.redirect('/src/activity/index'); // 重定向
-  
   res.sendFile(path.join(__dirname, './html/index.html')); // 发送页面
 });
 
