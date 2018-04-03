@@ -1,25 +1,32 @@
+/**
+ * 开发环境
+ */
 const webpack = require('webpack');
 const merge = require('webpack-merge');
-const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
+const path = require('path');
+const HtmlWebpackPlugin = require('Html-Webpack-Plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const webpackBaseConf = require('./webpack.base.conf');
 
-const config = require('../config');
-const webpackBaseConfig = require('./webpack.base.conf');
-
-Object.keys(webpackBaseConfig.entry).forEach(function(name) {
-  if (name !== 'verdors') {
-    webpackBaseConfig.entry[name] = webpackBaseConfig.entry[name].concat('webpack-hot-middleware/client?reload=true')
-  }
-})
-
-module.exports = merge(webpackBaseConfig, {
-  devtool: config.dev.sourceMap ? '#eval-source-map' : false,
+module.exports = merge(webpackBaseConf,{
+  devServer: {
+    publicPath: "",
+    historyApiFallback: true, // 不弹404
+    clientLogLevel: "none", // 控制台不输出信息
+    inline: true,
+    hot: true, // 允许热更新
+    watchOptions: {
+      aggregateTimeout: 300, // rebuild 延时, wait so long for more changes
+      ignored: /node_modules/,
+      poll: false, // 设置检测文件变化的间隔时间段，Check for changes every second
+    } 
+  },
+  devtool: 'eval-source-map',
   plugins: [
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: config.dev.env
-      }
+    new HtmlWebpackPlugin({
+      template: './src/index.html'
     }),
-    new FriendlyErrorsWebpackPlugin(),
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(), // 热更新模块
+    new webpack.NamedModulesPlugin(), // 更新组件时在控制台输出组件的路径而不是数字ID，用在开发模式
   ]
 });

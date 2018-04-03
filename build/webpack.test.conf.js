@@ -1,5 +1,5 @@
 /**
- * 生产环境
+ * 测试环境
  */
 const webpack = require('webpack');
 const merge = require('webpack-merge');

@@ -1,10 +1,12 @@
 const express = require('express');
 const path = require('path');
 const app = express();
+const open = require('open');
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
-const webpackConfig = require('./webpack.config');
+const webpackConfig = require('./webpack.dev.conf');
+const os = require('os');
 
 // const indexPath = path.join(__dirname, './src/index.html');
 // const publicPath = express.static(path.join(__dirname, './dist'));
@@ -39,9 +41,22 @@ app.use(webpackDevMiddleware(compiler, {
 }))
 app.use(webpackHotMiddleware(compiler));
 
+/**
+ * 获取本地IP
+ */
+const getIP = function() {
+  let ip = '';
+  try {
+    var network = os.networkInterfaces()
+    ip = network[Object.keys(network)[0]][1].address
+  } catch (e) {
+    ip = 'localhost';
+  }
+  return ip;
+}
 const server = app.listen(3000, function() {
-  let host = server.address().address;
+  let host = getIP();
   let port = server.address().port;
-
-  console.log('your app listening at http://%s:%s', host, port);
+  open('http://' + host + ':' + port);
 });
+

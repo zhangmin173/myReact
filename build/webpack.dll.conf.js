@@ -1,3 +1,6 @@
+/**
+ * 静态资源包
+ */
 const path = require('path');
 const webpack = require('webpack');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
