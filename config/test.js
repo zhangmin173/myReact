@@ -1,9 +1,9 @@
 module.exports = {
   mobile: true,
-  mode: 'production',
-  filename: '[name].[hash:8].js',
+  mode: 'development',
+  filename: '[name].js',
   publicPath: 'http://localhost/myReact/dist/',
-  devtool: false,
+  devtool: 'eval-source-map',
   urlLoader: {
     publicPath: 'http://localhost/myReact/dist/images/',
     outputPath: 'images/'

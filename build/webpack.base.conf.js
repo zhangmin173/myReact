@@ -3,6 +3,7 @@
  */
 const webpack = require('webpack');
 const path = require('path');
+const utils = require('./utils');
 const HtmlWebpackPlugin = require('Html-Webpack-Plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -42,7 +43,7 @@ module.exports = {
     base: ['./src/index.js']
   },
   output: {
-    path: path.join(__dirname, '../dist'),
+    path: path.resolve(__dirname, '../dist'),
     filename: conf[cKey].filename,
     publicPath: conf[cKey].publicPath,
   },
@@ -50,7 +51,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: './src/index.html'
-    }),
+    })
   ],
   module: {
     rules: [

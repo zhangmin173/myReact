@@ -4,10 +4,11 @@
   "description": "create my react-admin",
   "main": "index.js",
   "scripts": {
-    "server": "node app.js",
+    "server": "cross-env NODE_ENV=dev node ./build/app.js",
     "start": "cross-env NODE_ENV=dev webpack-dev-server --config ./build/webpack.dev.conf.js",
     "build": "cross-env NODE_ENV=prod webpack --config ./build/webpack.prod.conf.js",
-    "test": "cross-env NODE_ENV=test webpack --config ./build/webpack.test.conf.js"
+    "test": "cross-env NODE_ENV=test webpack --config ./build/webpack.test.conf.js",
+    "dll": "cross-env NODE_ENV=prod webpack --config ./build/webpack.dll.conf.js"
   },
   "keywords": [
     "react",

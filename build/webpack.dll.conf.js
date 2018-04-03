@@ -8,16 +8,11 @@ const os = require('os');
 
 module.exports = {
   entry: {
-    vendor: ['react', 'react-dom', 'react-router', 'classnames', 'clipboard', 'daterangepicker', 'formsy-react', 'history', 'immutability-helper', 'moment', 'pubsub-js', 'simditor', 'whatwg-fetch']
+    vendor: ['react', 'react-dom', 'react-router']
   },
   output: {
     path: path.join(__dirname, '../dist'),
     filename: '[name].dll.js',
-    /**
-     * output.library
-     * 将会定义为 window.${output.library}
-     * 在这次的例子中，将会定义为`window.vendor_library`
-     */
     library: '[name]_library'
   },
   plugins: [

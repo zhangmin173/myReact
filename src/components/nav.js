@@ -11,7 +11,7 @@
 // }
 
 const nav = {
-  title: 'hello world!!!'
+  title: 'hello zhangmin!!!'
 }
 
 export default nav

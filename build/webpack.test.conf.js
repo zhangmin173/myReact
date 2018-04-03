@@ -11,13 +11,14 @@ const webpackBaseConf = require('./webpack.base.conf');
 
 module.exports = merge(webpackBaseConf,{
   plugins: [
-    new CleanWebpackPlugin(['dist']),
+    new CleanWebpackPlugin(['dist'], {
+      root: path.resolve(__dirname, '../'),
+      verbose: false,
+      dry: false
+    }),
     new ExtractTextPlugin({
       filename: '[name].[contenthash:8].css'
     }),
-    new webpack.HashedModuleIdsPlugin(), // 用在生产模式
-    new HtmlWebpackPlugin({
-      template: './src/index.html'
-    }),
+    new webpack.HashedModuleIdsPlugin() // 用在生产模式
   ]
 });

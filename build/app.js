@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const app = express();
 const open = require('open');
+const host = require('../config/host');
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
@@ -41,22 +42,8 @@ app.use(webpackDevMiddleware(compiler, {
 }))
 app.use(webpackHotMiddleware(compiler));
 
-/**
- * 获取本地IP
- */
-const getIP = function() {
-  let ip = '';
-  try {
-    var network = os.networkInterfaces()
-    ip = network[Object.keys(network)[0]][1].address
-  } catch (e) {
-    ip = 'localhost';
-  }
-  return ip;
-}
-const server = app.listen(3000, function() {
-  let host = getIP();
-  let port = server.address().port;
-  open('http://' + host + ':' + port);
+const server = app.listen(host.ip, function() {
+  console.log('http://' + host.ip + ':' + host.port);
+  open('http://' + host.ip + ':' + host.port);
 });
 
