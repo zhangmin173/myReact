@@ -1,7 +1,15 @@
+/**
+ * 工具类
+ */
 const path = require('path');
-const os = require('os');
+const glob = require('glob');
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-exports.getIPAdress = function() {
+/**
+ * 获取ip
+ */
+function getIPAdress() {
   let ip = '';
   try {
     var network = os.networkInterfaces()
@@ -11,3 +19,148 @@ exports.getIPAdress = function() {
   }
   return ip;
 }
+exports.getIPAdress = getIPAdress;
+
+/**
+ * 获取url参数
+ * @param {路径} path 
+ */
+function getUrlParameter(name,path = window.location.href) {
+  const result = decodeURIComponent((new RegExp('[?|&]' + name + '=([^&;]+?)(&|#|;|$)').exec(path) || [undefined, ''])[1].replace(/\+/g, '%20')) || null;
+  return result ? result.split('/')[0] : '';
+}
+exports.getUrlParameter = getUrlParameter;
+
+/**
+ * 构建入口
+ * @param {路径} path 
+ */
+function getEntry(path) {
+  let files = getFileArr(path);
+  let filesObj = {};
+  files.forEach((filename) => {
+    let index = filename.lastIndexOf('.');
+    let key = filename.substring(6, index);
+    filesObj[key] = filename;
+  })
+  return filesObj;
+}
+exports.getEntry = getEntry;
+
+function getEntrys(globPath, pathDir) {
+  var files = glob.sync(globPath);
+  var entries = {},
+      entry, dirname, basename, pathname, extname;
+
+  for (var i = 0; i < files.length; i++) {
+      entry = files[i];
+      dirname = path.dirname(entry);   //文件目录
+      extname = path.extname(entry);   //后缀名
+      basename = path.basename(entry, extname);  //文件名
+      pathname = path.join(dirname, basename);
+      pathname = pathDir ? pathname.replace(new RegExp('^' + pathDir), '') : pathname;
+      entries[pathname] = ['./' + entry]; //这是在osx系统下这样写  win7  entries[basename]
+  }
+  console.log(entries);
+  return entries;
+}
+exports.getEntrys = getEntrys;
+
+/**
+ * 构建html
+ * @param {路径} path 
+ */
+function getPage(path) {
+  let files = getFileArr(path,'html');
+  let plugins = [],
+    index,key,chunk,common,conf;
+  files.forEach((filename) => {
+    index = filename.lastIndexOf('.');
+    key = filename.substring(6, filename.length);
+    chunk = filename.substring(6, index);
+    common = 'components/' + chunk.split('/')[1] + '/common'
+
+    conf = {
+      filename: key,
+      template: filename,
+      inject: false,
+      chunks: [chunk,common],
+      chunksSortMode: 'none'
+    };
+
+    plugins.push(new HtmlWebpackPlugin(conf));
+  })
+  return plugins;
+}
+exports.getPage = getPage;
+
+/**
+ * 构建css
+ * @param {路径} path 
+ */
+function getCss(path) {
+  let files = getFileArr(path,'html');
+  let plugins = [],
+    key,conf;
+  files.forEach((filename) => {
+    key = filename.substring(6, filename.length);
+    conf = {
+      filename: key,
+      publicPath: filename
+    };
+
+    plugins.push(new ExtractTextPlugin(conf));
+  })
+  return plugins;
+}
+exports.getCss = getCss;
+
+/**
+ * 获取文件
+ * @param {路径} path 
+ * @param {文件类型} type 
+ */
+function getFileArr(path = 'src', type = 'js') {
+  let files = glob.sync(path.join(__dirname, '../src/') + '**/*.' + type);
+  let filesList = [];
+  files.forEach((filename) => {
+    if(filename.indexOf(path) >= -1) {
+      filesList.push(filename);
+    }
+  })
+  return filesList;
+}
+exports.getFileArr = getFileArr;
+
+/**
+ * 获取mock文件
+ */
+function getMockFiles() {
+  let files = glob.sync(path.join(__dirname, '../mock/') + '**/index.js');
+  let mockFiles = [],index = files[0].lastIndexOf('mock') + 4, fileObj = {};
+  files.forEach((filename) => {
+    filename = filename.substring(index,filename.length-9);
+    mockFiles.push({
+      path: '../mock/' + filename + '/index.js',
+      api: filename
+    });
+  })
+  return mockFiles;
+}
+exports.getMockFiles = getMockFiles;
+
+/**
+ * 获取当天年月日时分秒
+ */
+function getTodayFull() {
+  const now = new Date(),
+    year = now.getFullYear(),
+    month = ("0" + (now.getMonth() + 1)).slice(-2),
+    date = ('0' + now.getDate()).slice(-2),
+    h = ('0' + now.getHours()).slice(-2),
+    m = ('0' + now.getMinutes()).slice(-2),
+    s = ('0' + now.getSeconds()).slice(-2);
+
+  return `${year}${month}${date}${h}${m}${s}`;
+}
+exports.getTodayFull = getTodayFull;

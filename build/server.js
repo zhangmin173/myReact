@@ -1,28 +1,22 @@
 const express = require('express');
 const path = require('path');
-const app = express();
 const open = require('open');
 const host = require('../config/host');
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 const webpackConfig = require('./webpack.dev.conf');
-const os = require('os');
 
-// const indexPath = path.join(__dirname, './src/index.html');
-// const publicPath = express.static(path.join(__dirname, './dist'));
-// app.use('/dist', publicPath);
-app.get('/activity/index', function(req, res, next) {
-  //res.redirect('/src/activity/index'); // 重定向
-  res.sendFile(path.join(__dirname, './html/index.html')); // 发送页面
-});
-
+/**
+ * 热更新
+ */
 Object.keys(webpackConfig.entry).forEach(function(name){
   webpackConfig.entry[name] = ['webpack-hot-middleware/client?reload=true'].concat(webpackConfig.entry[name]);
 })
+// 给webpack带上配置
 const compiler = webpack(webpackConfig);
-
-app.use(webpackDevMiddleware(compiler, {
+// 自动更新编译代码中间件
+const devMiddleWare = webpackDevMiddleware(compiler, {
   publicPath: webpackConfig.output.publicPath,
   noInfo: true,
   watchOptions: {
@@ -32,18 +26,26 @@ app.use(webpackDevMiddleware(compiler, {
   },
   stats: {
     colors: true,
-    assets: false,
-    modules: false,
-    children: false,
-    chunks: false,
-    chunkModules: false,
-    entrypoints: false
+    chunks: false
+  },
+  headers: {
+    'Access-Control-Allow-Origin': '*'
   }
-}))
-app.use(webpackHotMiddleware(compiler));
+})
+// 自动刷新浏览器中间件
+const hotMiddleWare = webpackHotMiddleware(compiler);
+// 创建应用
+const app = express();
+// 设置静态资源目录
+app.use(express.static(path.join(__dirname, '/')));
+// 调用中间件
+app.use(devMiddleWare);
+app.use(hotMiddleWare);
+// 调用路由
+app.use(require('../build/rooter'));
 
-const server = app.listen(host.ip, function() {
-  console.log('http://' + host.ip + ':' + host.port);
-  open('http://' + host.ip + ':' + host.port);
-});
+/**
+ * 启动服务
+ */
+const server = app.listen(host.port);
 

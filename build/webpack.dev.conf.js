@@ -23,6 +23,6 @@ module.exports = merge(webpackBaseConf,{
   devtool: 'eval-source-map',
   plugins: [
     new webpack.HotModuleReplacementPlugin(), // 热更新模块
-    new webpack.NamedModulesPlugin(), // 更新组件时在控制台输出组件的路径而不是数字ID，用在开发模式
+    new webpack.NamedModulesPlugin() // 更新组件时在控制台输出组件的路径而不是数字ID，用在开发模式
   ]
 });
