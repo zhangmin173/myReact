@@ -4,11 +4,10 @@
   "description": "create my react-admin",
   "main": "index.js",
   "scripts": {
-    "dev": "cross-env NODE_ENV=dev node ./build/server.js",
-    "start": "cross-env NODE_ENV=dev node ./webpack/app.js",
-    "build": "cross-env NODE_ENV=prod webpack --config ./webpack/prod.conf.js",
-    "test": "cross-env NODE_ENV=test webpack --config ./webpack/test.conf.js",
-    "dll": "cross-env NODE_ENV=prod webpack --config ./webpack/dll.conf.js"
+    "start": "cross-env NODE_ENV=dev node ./config/app.js",
+    "build": "cross-env NODE_ENV=prod webpack --config ./config/prod.conf.js",
+    "test": "cross-env NODE_ENV=test webpack --config ./config/test.conf.js",
+    "dll": "cross-env NODE_ENV=prod webpack --config ./config/dll.conf.js"
   },
   "keywords": [
     "react",
@@ -39,6 +38,7 @@
     "express": "^4.16.3",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "file-loader": "^1.1.11",
+    "html-webpack-include-assets-plugin": "^1.0.4",
     "html-webpack-plugin": "^3.0.7",
     "less": "^3.0.1",
     "less-loader": "^4.1.0",

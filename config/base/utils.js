@@ -79,7 +79,7 @@ function getPage(globPath, pathDir) {
       filename: file,
       template: path.join(pathDir,file),
       //inject: false,
-      chunks: ['base',chunk],
+      chunks: ['common/base',chunk],
       chunksSortMode: 'none'
     };
 
@@ -88,61 +88,6 @@ function getPage(globPath, pathDir) {
   return pages;
 }
 exports.getPage = getPage;
-
-/**
- * 构建css
- * @param {路径} path 
- */
-function getCss(path) {
-  let files = getFileArr(path,'html');
-  let plugins = [],
-    key,conf;
-  files.forEach((filename) => {
-    key = filename.substring(6, filename.length);
-    conf = {
-      filename: key,
-      publicPath: filename
-    };
-
-    plugins.push(new ExtractTextPlugin(conf));
-  })
-  return plugins;
-}
-exports.getCss = getCss;
-
-/**
- * 获取文件
- * @param {路径} path 
- * @param {文件类型} type 
- */
-function getFileArr(path = 'src', type = 'js') {
-  let files = glob.sync(path.join(__dirname, '../src/') + '**/*.' + type);
-  let filesList = [];
-  files.forEach((filename) => {
-    if(filename.indexOf(path) >= -1) {
-      filesList.push(filename);
-    }
-  })
-  return filesList;
-}
-exports.getFileArr = getFileArr;
-
-/**
- * 获取mock文件
- */
-function getMockFiles() {
-  let files = glob.sync(path.join(__dirname, '../mock/') + '**/index.js');
-  let mockFiles = [],index = files[0].lastIndexOf('mock') + 4, fileObj = {};
-  files.forEach((filename) => {
-    filename = filename.substring(index,filename.length-9);
-    mockFiles.push({
-      path: '../mock/' + filename + '/index.js',
-      api: filename
-    });
-  })
-  return mockFiles;
-}
-exports.getMockFiles = getMockFiles;
 
 /**
  * 获取当天年月日时分秒

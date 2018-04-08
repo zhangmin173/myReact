@@ -3,7 +3,7 @@ module.exports = {
     mobile: false,
     mode: 'development',
     filename: '[name].js',
-    publicPath: '',
+    publicPath: '/',
     devtool: 'eval-source-map',
     assets: {
       publicPath: '',
