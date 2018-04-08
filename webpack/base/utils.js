@@ -79,8 +79,8 @@ function getPage(globPath, pathDir) {
       filename: file,
       template: path.join(pathDir,file),
       //inject: false,
-      chunks: [chunk],
-      // chunksSortMode: 'none'
+      chunks: ['base',chunk],
+      chunksSortMode: 'none'
     };
 
     pages.push(new HtmlWebpackPlugin(conf));

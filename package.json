@@ -4,12 +4,11 @@
   "description": "create my react-admin",
   "main": "index.js",
   "scripts": {
-    "rooter": "cross-env NODE_ENV=dev node ./build/rooter.js",
-    "server": "cross-env NODE_ENV=dev node ./build/server.js",
-    "start": "cross-env NODE_ENV=dev webpack-dev-server --config ./build/webpack.dev.conf.js",
-    "build": "cross-env NODE_ENV=prod webpack --config ./build/webpack.prod.conf.js",
-    "test": "cross-env NODE_ENV=test webpack --config ./build/webpack.test.conf.js",
-    "dll": "cross-env NODE_ENV=prod webpack --config ./build/webpack.dll.conf.js"
+    "dev": "cross-env NODE_ENV=dev node ./build/server.js",
+    "start": "cross-env NODE_ENV=dev node ./webpack/app.js",
+    "build": "cross-env NODE_ENV=prod webpack --config ./webpack/prod.conf.js",
+    "test": "cross-env NODE_ENV=test webpack --config ./webpack/test.conf.js",
+    "dll": "cross-env NODE_ENV=prod webpack --config ./webpack/dll.conf.js"
   },
   "keywords": [
     "react",
@@ -23,6 +22,7 @@
   "dependencies": {
     "clean-webpack-plugin": "^0.1.19",
     "css-loader": "^0.28.11",
+    "glob": "^7.1.2",
     "open": "0.0.5",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",

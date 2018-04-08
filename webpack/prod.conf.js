@@ -1,28 +1,29 @@
 /**
- * webpack基础配置
+ * 生产环境
  */
 const webpack = require('webpack');
+const merge = require('webpack-merge');
 const path = require('path');
-const utils = require('./utils');
 const HtmlWebpackPlugin = require('Html-Webpack-Plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const conf = require('../config/index');
-const cKey = process.env.NODE_ENV;
 
-
-const entries = utils.getEntry('**/*.js',path.join(__dirname,'../src/pages'));
-module.exports = {
-  entry: entries,
-  output: {
-    path: path.resolve(__dirname, '../dist'),
-    filename: conf[cKey].filename,
-    publicPath: conf[cKey].publicPath,
-  },
-  mode: conf[cKey].mode,
+const utils = require('./base/utils');
+const ENV = process.env.NODE_ENV;
+const conf = require('./base/conf')[ENV];
+const webpackBaseConf = require('./base.conf');
+const webpackConfig = merge(webpackBaseConf,{
   plugins: [
-
-  ].concat(utils.getPage('**/*.html',path.join(__dirname,'../src/pages'))),
+    new CleanWebpackPlugin(path.join(__dirname,'../dist'), {
+      root: path.resolve(__dirname, '../'),
+      verbose: false,
+      dry: false
+    }),
+    new ExtractTextPlugin({
+      filename: '[name].[contenthash:8].css'
+    }),
+    new webpack.HashedModuleIdsPlugin() // 用在生产模式
+  ],
   module: {
     rules: [
       {
@@ -65,12 +66,14 @@ module.exports = {
             options: {
               limit: 100,
               name: '[name].[ext]',
-              publicPath: conf[cKey].urlLoader.publicPath,
-              outputPath: conf[cKey].urlLoader.outputPath
+              publicPath: conf.assets.publicPath,
+              outputPath: conf.assets.outputPath
             }
           },
         ]
       }
     ]
   }
-};
+});
+console.log(webpackConfig.entry);
+module.exports = webpackConfig;
