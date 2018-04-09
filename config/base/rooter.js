@@ -1,5 +1,6 @@
 const path = require('path');
-const router = require('express').Router();
+const express = require('express');
+const router = express.Router();
 const fs = require('fs');
 
 const utils = require('./utils');
@@ -12,11 +13,13 @@ pages.forEach(page => {
   //   //res.send(res);
   // })
 })
+router.all('/', (req, res) => {
+  res.send('hello world');
+});
 router.all('*', (req, res) => {
   if (req.path.indexOf('html') !== -1) {
     
   } else {
-    console.log(req.path);
     res.json(require('../../mock' + req.path)());
   } 
 });

@@ -28,15 +28,16 @@ const devMiddleWare = webpackDevMiddleware(compiler, {
 const hotMiddleWare = webpackHotMiddleware(compiler);
 // 创建应用
 const app = express();
-// 设置静态资源目录
-app.use(express.static(path.join(__dirname, '/')));
 // 调用中间件
 app.use(devMiddleWare);
 app.use(hotMiddleWare);
 // 调用路由
-app.set('views', path.join(__dirname, '../dist'));
 app.use(require('./base/rooter'));
-
+// 设置静态资源目录
+//app.use(express.static(path.join(__dirname, '/')));
+app.use('', express.static(path.join(__dirname, '../dist')));
+app.set('view engine', 'html');
+app.set('views', path.join(__dirname, '../dist'));
 /**
  * 启动服务
  */
