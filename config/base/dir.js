@@ -6,7 +6,7 @@ const dir = {
   src: path.join(__dirname,'../../src'),
   mock: path.join(__dirname,'../../mock'),
   libs: path.join(__dirname,'../../libs'),
-  pages: path.join(__dirname,'../../src/pages'),
+  pages: path.join(__dirname,'../../src'),
   common: path.join(__dirname,'../../src/common'),
   dll: path.join(__dirname, '../../src/dll')
 }

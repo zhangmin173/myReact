@@ -13,9 +13,9 @@ pages.forEach(page => {
   //   //res.send(res);
   // })
 })
-router.all('/', (req, res) => {
-  res.send('hello world');
-});
+// router.all('/', (req, res) => {
+//   res.send('hello world');
+// });
 router.all('*', (req, res) => {
   if (req.path.indexOf('html') !== -1) {
     
