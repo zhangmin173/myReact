@@ -1,61 +1,6 @@
-@default: #7171C6;
-@active: rgb(208, 227, 247);
+@import '../../common/css/_var.less';
 
 body {
   max-width: 980px;
   margin: 0 auto;
-}
-
-.header {
-  text-align: center;
-  background-color: @default;
-  color: #fff;
-  padding: 20px 0;
-}
-
-.add {
-  display: flex;
-  height: 40px;
-  line-height: 40px;
-
-  input {
-    box-sizing: border-box;
-    padding: 5px 10px;
-    flex: 8;
-    height: 100%;
-    outline: 0;
-    border: 1px solid @default;
-  }
-
-  button {
-    box-sizing: border-box;
-    flex: 2;
-    height: 100%;
-    border: 1px solid @default;
-    border-left-width: 0;
-    outline: 0;
-    cursor: pointer;
-  }
-}
-
-.list {
-  list-style: none;
-  padding: 0;
-
-  li {
-    padding: 0 10px;
-    height: 40px;
-    line-height: 40px;
-    cursor: pointer;
-
-    &.active {
-      background-color: @active;
-      color: #fff;
-    }
-
-    label {
-      float: right;
-      cursor: pointer;
-    }
-  }
 }
