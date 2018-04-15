@@ -13,15 +13,12 @@ pages.forEach(page => {
   //   //res.send(res);
   // })
 })
-// router.all('/', (req, res) => {
-//   res.send('hello world');
-// });
-router.all('*', (req, res) => {
-  if (req.path.indexOf('html') !== -1) {
+// router.all('*', (req, res) => {
+//   if (req.path.indexOf('html') !== -1) {
     
-  } else {
-    res.json(require('../../mock' + req.path)());
-  } 
-});
+//   } else {
+//     res.json(require('../../mock' + req.path)());
+//   } 
+// });
 
 module.exports = router;

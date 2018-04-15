@@ -1,7 +1,7 @@
 import React from 'react';
 import './index.less';
 
-export default class Add extends React.Component {
+export default class about extends React.Component {
 
   constructor(props) {
     super(props);
@@ -15,10 +15,7 @@ export default class Add extends React.Component {
 
   render() {
     return (
-      <div className='add'>
-        <input type='text' ref='addInput' />
-        <button onClick={this.submit.bind(this)}>{this.state.buttonText}</button>
-      </div>
+      <div>关于</div>
     )
   }
 

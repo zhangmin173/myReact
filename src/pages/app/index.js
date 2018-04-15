@@ -1,42 +1,21 @@
 import React from 'react';
+import { Route, Switch } from 'react-router-dom';
 import './index.less';
 
-import AppHeader from '../../pages/header/index';
-import Add from '../../pages/add/index';
-import List from '../../pages/list/index';
+import Layout from '../../components/layout/index';
+import MyMenu from '../../components/menu';
+import Routes from '../../routes/index';
 
 export default class App extends React.Component {
 
   constructor(props) {
     super(props);
 
-    this.state = {
-      list: [
-        {
-          id: 1,
-          text: '吃饭',
-          statues: 0
-        }
-      ]
-    } 
-
   }
 
   render() {
     return (
-      <div>
-        <AppHeader title="To Do List"></AppHeader>
-        <Add addList={this.addList.bind(this)}></Add>
-        <ul className="list">
-          {
-            this.state.list.map((item) => {
-              return <List key={item.id} item={item} 
-                changeStatues={this.changeStatues.bind(this)}
-                del={this.del.bind(this)}></List>
-            })
-          }
-        </ul>
-      </div>
+      <Layout />
     )
   }
 

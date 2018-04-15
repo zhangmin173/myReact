@@ -32,9 +32,12 @@ const app = express();
 app.use(devMiddleWare);
 app.use(hotMiddleWare);
 // 调用路由
-app.use(require('./base/rooter'));
+//app.use(require('./base/rooter'));
+app.get('/', function(req, res) {
+  res.render('index');
+});
 // 设置静态资源目录
-//app.use(express.static(path.join(__dirname, '/')));
+app.use(express.static(path.join(__dirname, '/')));
 app.use('', express.static(path.join(__dirname, '../dist')));
 app.set('view engine', 'html');
 app.set('views', path.join(__dirname, '../dist'));
