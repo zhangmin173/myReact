@@ -1,3 +1,8 @@
 import './index.less';
+import { login} from '../../components/api';
 
-const a = 2;
+$(function() {
+  login(function() {
+    console.log('login')
+  })
+})

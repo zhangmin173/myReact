@@ -32,6 +32,6 @@ module.exports = {
   },
   stats: "errors-only",
   mode: conf.mode,
-  plugins: utils.getPage('**/*.html',dir.pages),
+  plugins: utils.getPage('**/*.js',dir.pages),
   module: require('./base/module.conf')[ENV]
 };
