@@ -29,8 +29,12 @@ export default class Login extends React.Component {
 
   login(e) {
     e.preventDefault();
-    console.log(e);
-    //this.props.history.push('/web')
+    let user = e.currentTarget.user.value,
+      pwd = e.currentTarget.pwd.value;
+
+    if (user === '123') {
+      this.props.history.push('/web')
+    }
   }
 
 }
