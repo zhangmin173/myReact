@@ -1,7 +1,10 @@
 function mock() {
   let data = {
-    name: '',
-    type: 'post'
+    success: true,
+    data: {
+
+    },
+    msg: '请求成功'
   }
   return data
 }
