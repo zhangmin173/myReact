@@ -74,11 +74,12 @@ function getPage(globPath, pathDir) {
   files.forEach(file => {
     extname = path.extname(file); //后缀名
     chunk = file.replace(new RegExp(extname), '');
-    file = file.replace('.js','.html');
+    //file = file.replace('.js','.html');
     
     conf = {
       filename: file,
-      template: path.join(pathDir,'../../src/common/layout/_index.html'),
+      template: path.join(pathDir,file),      
+      //template: path.join(pathDir,'../../src/common/layout/_index.html'),
       inject: false,
       favicon: path.join(__dirname,'../../favicon.ico'),
       chunks: ['common/base',chunk],
