@@ -2,7 +2,7 @@
  * @Author: 张敏 
  * @Date: 2018-04-21 17:53:51 
  * @Last Modified by: 张敏
- * @Last Modified time: 2018-04-22 19:57:16
+ * @Last Modified time: 2018-04-23 09:14:14
  */
 
 import Toolkit from './toolkit';
@@ -35,7 +35,7 @@ class Game {
   }
 
   events() {
-    const width = window.screen.width / this.matrixN;
+    const width = $('#app').width() / this.matrixN;
 
     window.addEventListener('click', e => {
       if (!this.start) return;

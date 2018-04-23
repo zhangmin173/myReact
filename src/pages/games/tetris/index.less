@@ -1,0 +1,92 @@
+@import '../../../common/css/_var.less';
+
+#app {
+  position: relative;
+  height: 100%;
+  
+  .app-main {
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: #fff;
+    box-sizing: border-box;
+  }
+
+  .app-preview {
+    position: absolute;
+    right: 0;
+    top: 0;
+    background-color: #fff;
+    box-sizing: border-box;
+  }
+
+  .app-main,.app-preview {
+	
+    span {
+      float: left;
+      display: block;
+      box-sizing: border-box;
+      border: 1px solid #eee;
+  
+      &.none {
+        background-color: #fff;
+      }
+  
+      &.done {
+        background-color: #ddd;
+      }
+  
+      &.active {
+        background-color: #f00;
+      }
+    }
+  }
+
+  .app-display  {
+    position: absolute;
+    right: 0;
+    border: 1px solid #eee;
+    background-color: #fff;
+  }
+  
+  @controlSize: 120/@rem;
+  .app-control {
+    position: absolute;
+    width: 100%;
+    height: @controlSize;
+
+    .up,.down,.left,.right,.fall {
+      position: absolute;
+      width: @controlSize/3*2;
+      height: @controlSize;
+      text-align: center;
+      line-height: @controlSize;
+      background-color: @default;
+      color: #fff;
+      left: 50%;
+    }
+    .fall {
+      height: @controlSize/3*2;
+      line-height: @controlSize/3*2;
+      top: @controlSize/3*2/4;
+    }
+    .up {
+      top: -@controlSize;
+    }
+    .down {
+      bottom: -@controlSize;
+    }
+    .left {
+      margin-left: -@controlSize;
+      transform: rotate(-90deg);
+    }
+    .right {
+      margin-left: @controlSize;
+      transform: rotate(90deg);
+    }
+  }
+
+}
+
+
+
