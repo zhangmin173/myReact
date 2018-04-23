@@ -6,7 +6,10 @@
     <link rel="shortcut icon" href="<%= htmlWebpackPlugin.files.favicon%>">
   <% } %>
   <title>疯狂拼图</title>
-  <link rel="stylesheet" href="<%= htmlWebpackPlugin.files.css[0] %>">
+  <% if (htmlWebpackPlugin.files.css.length) { %>
+    <link rel="stylesheet" href="<%= htmlWebpackPlugin.files.css[0] %>">
+    <link rel="stylesheet" href="<%= htmlWebpackPlugin.files.css[1] %>">
+  <% } %>
   <script type="text/javascript" src="<%= htmlWebpackPlugin.files.js[0] %>"></script>  
 </head>
 <body>

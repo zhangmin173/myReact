@@ -15,10 +15,10 @@ module.exports = {
     mobile: true,
     mode: 'production',
     filename: '[name].[hash:8].js',
-    publicPath: 'http://localhost/myReact/dist/',
+    publicPath: '//m.nextdog.cc/dist/',
     devtool: false,
     assets: {
-      publicPath: 'http://localhost/myReact/dist/assets/',
+      publicPath: '//m.nextdog.cc/myReact/dist/assets/',
       outputPath: 'assets/'
     }
   }
