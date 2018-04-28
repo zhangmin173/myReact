@@ -8,7 +8,7 @@
 /**
  * 工具类函数
  */
-const utils = (function () {
+const Toolkit = (function () {
   return {
     /**
      * ajax请求
@@ -46,4 +46,4 @@ const utils = (function () {
     }
   }
 })();
-export default utils
+export default Toolkit

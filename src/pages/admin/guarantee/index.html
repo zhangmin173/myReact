@@ -5,7 +5,7 @@
   <% if (htmlWebpackPlugin.files.favicon) { %>
     <link rel="shortcut icon" href="<%= htmlWebpackPlugin.files.favicon%>">
   <% } %>
-  <title>俄罗斯方块儿</title>
+  <title>保修</title>
   <% if (htmlWebpackPlugin.files.css.length) { %>
     <link rel="stylesheet" href="<%= htmlWebpackPlugin.files.css[0] %>">
     <link rel="stylesheet" href="<%= htmlWebpackPlugin.files.css[1] %>">
@@ -14,20 +14,7 @@
 </head>
 <body>
   <div id="app">
-		<div id="main" class="app-main"></div>
-		<div id="preview" class="app-preview"></div>
-		<div class="app-display">
-			<p>时间：<span id="time">0</span></p>
-			<p>分数：<span id="score">0</span></p>
-			<p id="over"></p>
-    </div>
-    <div class="app-control">
-      <div class="up">上</div>
-      <div class="left">左</div>
-      <div class="right">右</div>
-      <div class="down">下</div>
-      <div class="fall">OK</div>
-    </div>
+		
 	</div>
   <script type="text/javascript" src="<%= htmlWebpackPlugin.files.js[1] %>"></script>
 </body>
