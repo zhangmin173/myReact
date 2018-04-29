@@ -1,8 +1,8 @@
 /*
  * @Author: 张敏 
  * @Date: 2018-04-17 08:41:11 
- * @Last Modified by: 张敏
- * @Last Modified time: 2018-04-18 08:48:18
+ * @Last Modified by: Zhang Min
+ * @Last Modified time: 2018-04-29 21:18:40
  */
 
 /**
@@ -43,6 +43,13 @@ const Toolkit = (function () {
     getUrlParameter(name,path = window.location.href) {
       const result = decodeURIComponent((new RegExp('[?|&]' + name + '=([^&;]+?)(&|#|;|$)').exec(path) || [undefined, ''])[1].replace(/\+/g, '%20')) || null;
       return result ? result.split('/')[0] : '';
+    },
+    /**
+     * 手机号隐藏4位
+     * @param {手机号} tel 
+     */
+    mobile2show(tel) {
+      return tel.substr(0, 3) + '****' + tel.substr(7);;
     }
   }
 })();

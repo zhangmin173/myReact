@@ -1,6 +1,14 @@
 @rem: 200rem;
-@g: 10/@rem;
-@default: #66a6ff;
+@g: 20/@rem;
+@default: #f09819;
+@gray: #eee;
+@black: #595959;
+@lightBlack: #888686;
+@c1: #2aa515;
+@c2: #d81e06;
+@fz-min: 24/@rem;
+@fz: 32/@rem;
+@fz-max: 36/@rem;
 
 .wd(@w,@h) {
   width: @w/@rem;
@@ -18,11 +26,23 @@
   left: @left/@rem;
   top: @top/@rem;
 }
-
-.gradient1() {
-  background-image: linear-gradient(45deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
+.pr(@top,@right) {
+  position: absolute;
+  right: @right/@rem;
+  top: @top/@rem;
 }
 
-.gradient2() {
-  background-image: linear-gradient(to top, #007adf 0%, #00ecbc 100%);
+.text-line {
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis
+}
+
+.line(@w) {
+  border: @w/@rem solid @gray;
+}
+.line-b(@w) {
+  border-bottom: @w/@rem solid @gray;
+}
+
+.gradient1() {
+  background-image: linear-gradient(-60deg, #ff5858 0%, #f09819 100%);
 }

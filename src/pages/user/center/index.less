@@ -4,6 +4,75 @@
   position: relative;
   height: 100%;
 
+  .user-list {
+    position: relative;
+    padding: 0 @g;
+    background-color: #fff;
+
+    .user-list-item {
+      display: block;
+      
+      &:not(:last-child) {
+        .line-b(1);
+      }
+    }
+  }
+
+  .user-list-item {
+    position: relative;
+    text-decoration: none;
+    font-size: @fz;
+    color: @black;
+
+    .list-item-label {
+      display: inline-block;
+      line-height: 98/@rem;
+      width: 120/@rem;
+    }
+
+    .list-item-body {
+      float: right;
+      line-height: 98/@rem;
+      color: @lightBlack;
+    }
+
+    &.user-headimg {
+      .list-item-label {
+        line-height: 160/@rem;
+      }
+      .headimg {
+        .wd(100,100);
+        margin-top: 30/@rem;
+        background-size: cover;
+      }
+    }
+
+  }
+
+  .btn-list {
+    margin-top: @g;
+    padding: 0 @g;
+    background-color: #fff;
+    
+    .btn-list-item {
+      display: block;
+
+      &:not(:last-child) {
+        .line-b(1);
+      }
+    }
+  }
+
+  .btn-list-item {
+    position: relative;
+    text-decoration: none;
+    font-size: @fz;
+    color: @black;
+
+    .list-item-label {
+      line-height: 98/@rem;
+    }
+  }
 
 }
 

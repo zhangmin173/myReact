@@ -1,5 +1,6 @@
 @import './_reset.less';
 @import './_var.less';
+@import './_iconfont.less';
 
 html,body {
   height: 100%;
@@ -15,5 +16,114 @@ body {
     margin: 0 auto;
     background-color: #f2f2f2;
     overflow-x: hidden;
+  }
+}
+
+.app-nav {
+  position: relative;
+  height: 98/@rem;
+  background-color: @default;
+  color: #fff;
+  text-align: center;
+
+  .app-nav-left {
+    .ps(20,20);
+    .wd(58,58);
+  }
+
+  .app-nav-title {
+    font-size: @fz-max;
+    line-height: 98/@rem;
+  }
+
+  .app-nav-right {
+    .pr(20,20);
+    .wd(58,58);
+    line-height: 58/@rem;
+    text-align: center;
+
+    &.iconfont {
+      font-size: 58/@rem;
+      line-height: 1;
+    }
+  }
+}
+
+.input {
+  position: relative;
+  box-sizing: border-box;
+  padding: 0 @g;
+  height: 98/@rem;
+  line-height: 98/@rem;
+  background-color: #fff;
+  .line-b(2);
+
+  .input-label {
+    display: inline-block;
+    width: 120/@rem;
+    text-align: right;
+  }
+  .input-enter {
+    display: inline-block;
+    width: 500/@rem;
+
+    input {
+      display: block;
+      box-sizing: border-box;
+      width: 100%;
+      border: none;
+      outline: 0;
+      color: @black;
+    }
+  }
+  .input-right {
+    display: inline-block;
+    width: 80/@rem;
+    text-align: right;
+  }
+}
+
+.btn {
+  width: 220/@rem;
+  font-size: @fz;
+  color: @black;
+  padding: @g @g * 2;
+  text-align: center;
+  background-color: #fff;
+  border: none;
+  outline: 0;
+  border-radius: @g;
+
+  &.btn-default {
+    background-color: @default;
+    color: #fff;
+  }
+}
+
+.pop {
+  position: fixed;
+  width: 700/@rem;
+  left: 50%;
+  top: 0;
+  margin-left: -700/2/@rem;
+
+  .pop-body {
+    padding: @g;
+    background-color: @default;    
+    color: #fff;
+    font-size: @fz-min;
+    border-radius: 10/@rem;
+
+    &.show {
+      display: block;
+    }
+
+    &.error {
+      background-color: @c2;
+
+    }
+    &.success {
+      background-color: @c1;
+    }
   }
 }

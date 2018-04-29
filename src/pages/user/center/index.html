@@ -14,7 +14,31 @@
 </head>
 <body>
   <div id="app">
-		
+		<div class="user-list">
+      <a href="../information/index.html?action=headimg" class="user-list-item user-headimg">
+        <div class="list-item-label">头像</div>
+        <div class="list-item-body headimg"></div>
+      </a>
+      <a href="../information/index.html?action=nickname"  class="user-list-item">
+        <div class="list-item-label">昵称</div>
+        <div class="list-item-body nickname"></div>
+      </a>
+      <a href="../information/index.html?action=mobile"  class="user-list-item">
+        <div class="list-item-label">手机号</div>
+        <div class="list-item-body mobile"></div>
+      </a>
+		</div>
+    <div class="btn-list">
+      <a href="../../address/list/index.html" class="btn-list-item">
+        <div class="list-item-label">我的地址</div>
+      </a>
+      <a href="../../guarantee/add/index.html" class="btn-list-item">
+        <div class="list-item-label">我要保修</div>
+      </a>
+      <a href="../../complaint/add/index.html" class="btn-list-item">
+        <div class="list-item-label">投诉建议</div>
+      </a>
+    </div>
 	</div>
   <script type="text/javascript" src="<%= htmlWebpackPlugin.files.js[1] %>"></script>
 </body>
