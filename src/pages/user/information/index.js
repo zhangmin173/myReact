@@ -2,7 +2,7 @@
  * @Author: Zhang Min 
  * @Date: 2018-04-28 08:57:30 
  * @Last Modified by: Zhang Min
- * @Last Modified time: 2018-04-29 21:35:30
+ * @Last Modified time: 2018-05-01 09:52:28
  */
 
 import './index.less';
@@ -72,7 +72,7 @@ $(function() {
         saveInformation(data) {
             pop.show('success','提交中，请稍后');
             toolkit.fetch({
-                url: '/save',
+                url: '/User/updateUser',
                 data,
                 success: (res) => {
                     

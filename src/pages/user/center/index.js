@@ -2,7 +2,7 @@
  * @Author: Zhang Min 
  * @Date: 2018-04-28 08:57:30 
  * @Last Modified by: Zhang Min
- * @Last Modified time: 2018-04-29 21:17:33
+ * @Last Modified time: 2018-05-01 09:40:20
  */
 
 import './index.less';
@@ -25,16 +25,14 @@ $(function() {
         }
         getuserinfo(cb) {
             toolkit.fetch({
-                url: '',
+                url: '/User/getUser',
                 success: (res) => {
-
+                    cb & cb({
+                        headimg: res.data.user_img,
+                        nickname: res.data.user_name,
+                        mobile: res.data.user_phone
+                    })
                 }
-            })
-
-            cb & cb({
-                headimg: defaultHeadimg,
-                nickname: '阿敏',
-                mobile: '17357213387'
             })
         }
     }

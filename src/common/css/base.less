@@ -52,7 +52,6 @@ body {
 .input {
   position: relative;
   box-sizing: border-box;
-  padding: 0 @g;
   height: 98/@rem;
   line-height: 98/@rem;
   background-color: #fff;
@@ -77,8 +76,7 @@ body {
     }
   }
   .input-right {
-    display: inline-block;
-    width: 80/@rem;
+    float: right;
     text-align: right;
   }
 }
@@ -109,8 +107,8 @@ body {
 
   .pop-body {
     padding: @g;
-    background-color: @default;    
-    color: #fff;
+    background-color: @gray;    
+    
     font-size: @fz-min;
     border-radius: 10/@rem;
 
@@ -120,10 +118,11 @@ body {
 
     &.error {
       background-color: @c2;
-
+      color: #fff;
     }
     &.success {
       background-color: @c1;
+      color: #fff;
     }
   }
 }

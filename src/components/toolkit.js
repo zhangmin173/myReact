@@ -2,7 +2,7 @@
  * @Author: 张敏 
  * @Date: 2018-04-17 08:41:11 
  * @Last Modified by: Zhang Min
- * @Last Modified time: 2018-04-29 21:18:40
+ * @Last Modified time: 2018-05-01 10:16:42
  */
 
 /**
@@ -20,9 +20,7 @@ const Toolkit = (function () {
         type: options.type || 'post',
         data: options.data || {},
         success: (res) => {
-          if (!res.success) {
-            console.log(res.msg);
-          }
+          console.log(res.msg);
           options.success && options.success(res);
         },
         error: (err) => {
