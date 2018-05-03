@@ -5,7 +5,7 @@ function mock() {
       work_id: 1,
       work_phone: '17357213387',
       work_user_name: '报修用户名称',
-      work_user_id: 1,
+      user_id: 1,
       work_imgs: [
 
       ],
@@ -17,7 +17,11 @@ function mock() {
       work_voice: '',
       work_status: 1,
       work_worker_id: 1,
+      work_worker_name: '接单人',
+      work_worker_phone: '12345678910',
       work_worker_note: '晚点上门修理',
+      work_delay_time: '2015-05-02',
+      work_over_time: '2015-05-02',
       create_time: '2018-05-01',
       update_time: '2018-05-01'
     },

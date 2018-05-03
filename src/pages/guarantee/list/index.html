@@ -14,8 +14,17 @@
 </head>
 <body>
   <div id="app">
-		
-	</div>
+		<div id="wrapper" class="wrapper">
+      <ul>
+        
+      </ul>
+    </div>
+  </div>
+  <script id="tpl-work" type="text/html">
+    {{each data as item i}}
+    <li>{{i}}</li>
+    {{/each}}
+  </script>
   <script type="text/javascript" src="<%= htmlWebpackPlugin.files.js[1] %>"></script>
 </body>
 </html>
