@@ -12,10 +12,10 @@ const conf = require('./base/conf')[ENV];
 const dir = require('./base/dir');
 
 
-const entries = utils.getEntry('**/index.js',dir.pages);
+const entries = utils.getEntry('**/index.js', dir.pages);
 
 const coms = {
-  'common/base': path.join(__dirname,'../src/common/js/base.js'),
+  'common/base': path.join(__dirname, '../src/common/js/base.js'),
 }
 for (const key in coms) {
   if (coms.hasOwnProperty(key)) {
@@ -32,6 +32,6 @@ module.exports = {
   },
   stats: "errors-only",
   mode: conf.mode,
-  plugins: utils.getPage('**/index.html',dir.pages),
+  plugins: utils.getPage('**/index.html', dir.pages),
   module: require('./base/module.conf')[ENV]
 };

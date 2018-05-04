@@ -2,7 +2,7 @@
  * @Author: Zhang Min 
  * @Date: 2018-05-03 08:19:32 
  * @Last Modified by: Zhang Min
- * @Last Modified time: 2018-05-03 08:26:01
+ * @Last Modified time: 2018-05-04 14:29:32
  */
 
 /**
@@ -35,9 +35,9 @@ const Event = (function () {
          * @param {事件名词} eventName 
          */
         emit(eventName) {
-            if (this.handlers[arguments[0]]) {
+            if (this.handlers && this.handlers[arguments[0]]) {
                 for (var i = 0; i < this.handlers[arguments[0]].length; i++) {
-                    this.handlers[arguments[0]][i](arguments[1]);
+                    this.handlers[eventName][i].apply(null, [].slice.call(arguments, 1));
                 }
             }
         },
