@@ -30,6 +30,11 @@ module.exports = {
     filename: conf.filename,
     publicPath: conf.publicPath,
   },
+  resolve: {
+    alias: {
+      'src': path.join(__dirname, '../src')
+    }
+  },
   stats: "errors-only",
   mode: conf.mode,
   plugins: utils.getPage('**/index.html', dir.pages),

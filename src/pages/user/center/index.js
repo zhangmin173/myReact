@@ -2,12 +2,12 @@
  * @Author: Zhang Min 
  * @Date: 2018-04-28 08:57:30 
  * @Last Modified by: Zhang Min
- * @Last Modified time: 2018-05-01 09:40:20
+ * @Last Modified time: 2018-05-06 14:40:14
  */
 
 import './index.less';
 import toolkit from '../../../components/toolkit';
-import defaultHeadimg from '../../../common/images/user/default-headimg.jpg';
+import defaultHeadimg from '../../../common/images/default-headimg.jpg';
 
 $(function() {
     

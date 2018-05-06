@@ -2,7 +2,7 @@
  * @Author: Zhang Min 
  * @Date: 2018-05-03 07:50:42 
  * @Last Modified by: Zhang Min
- * @Last Modified time: 2018-05-04 14:57:46
+ * @Last Modified time: 2018-05-04 15:35:10
  */
 
 /**
@@ -36,14 +36,19 @@ class Tabsview {
         this.tabIndex = this.opt.tabIndex || 0;
     }
     init() {
+        // 初始化dom
         this.$wrapper.append(this._createTabs(this.tabs));
-
+        // 获取一些dom
         this.$tabBars = this.$wrapper.find('.tab-bar');
         this.$tabContents = this.$wrapper.find('.tab-content');
         this.$tabContentAnimation = this.$wrapper.find('.tabs-content-animation');
+        // 设置动画时长
         this._setTranslition(this.$tabContentAnimation, this.timeout);
-
+        // 触发首次显示事件
         this.emit('tabChange', this.tabIndex, this.$tabContents.eq(this.tabIndex));
+        // 首次加载数据
+        this._loading(this.tabIndex);
+        // 首次显示pannel
         this._translate(this.$tabContentAnimation, -this.width * this.tabIndex);
 
         this.$tabBars.on('click', (e) => {
@@ -91,7 +96,9 @@ class Tabsview {
     _createTabContents(tabs) {
         let tabsCopntentHtml = '';
         tabs.forEach((item, i) => {
-            tabsCopntentHtml += `<div class="tab-content" style="width:${this.width}px;">内容加载中...</div>`;
+            tabsCopntentHtml += `<div class="tab-content" style="width:${this.width}px;">
+                <ul></ul>
+            </div>`;
         });
         return tabsCopntentHtml;
     }
@@ -114,7 +121,7 @@ class Tabsview {
             console.log(msg);
         }
     }
-    _loading() {
+    _loading(nowIndex) {
         this.isLoading = true;
         Toolkit.fetch({
             url: this.url,
