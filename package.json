@@ -19,6 +19,7 @@
   "author": "MIN ZHANG",
   "license": "ISC",
   "dependencies": {
+    "better-scroll": "^1.10.2",
     "clean-webpack-plugin": "^0.1.19",
     "css-loader": "^0.28.11",
     "glob": "^7.1.2",
@@ -35,6 +36,7 @@
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.4",
     "babel-preset-react": "^6.24.1",
+    "better-picker": "^1.1.3",
     "cross-env": "^5.1.4",
     "express": "^4.16.3",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",

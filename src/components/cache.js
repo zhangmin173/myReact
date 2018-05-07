@@ -1,49 +1,34 @@
 /*
- * @Author: 张敏 
- * @Date: 2018-04-17 09:18:17 
+ * @Author: 张敏
+ * @Date: 2018-04-17 09:18:17
  * @Last Modified by: Zhang Min
- * @Last Modified time: 2018-05-04 17:58:39
+ * @Last Modified time: 2018-05-07 17:46:49
  */
 
 /**
- * 封装localStorage
+ * 兼容locastorage和cookie的前端存储类
  */
-const Cache = (function () {
-	let storage = window.localStorage;
-	return {
-		set(key, value, expiredays) {
-			expiredays = expiredays ? expiredays : 1;
-			try {
-				storage.setItem(key, JSON.stringify(value))
-			} catch (e) {
+import Cookie from './cookie';
+import Storage from './storage';
 
-			}
-		},
-		get(key) {
-			let value = null;
-			try {
-				value = JSON.parse(storage.getItem(key));
-			} catch (e) {
+class Cache {
+  constructor(opt) {
+    const opts = opt || {};
 
-			}
-			return value;
-		},
-		remove(key) {
-			let data = null;
-			try {
-				data = storage.getItem(key);
-			} catch (e) {
+    this.cache = new Cookie(opts);
+    if (window.localStorage) {
+      this.cache = new Storage(opts);
+    }
+  }
+  set(key, value, expiredays = 0) {
+    this.cache.set(key, value, expiredays);
+  }
+  get(key) {
+    return this.cache.get(key);
+  }
+  remove(key) {
+    this.cache.remove(key);
+  }
+}
 
-			}
-			if (data) {
-				try {
-					storage.removeItem(key);
-				} catch (e) {
-
-				}
-			}
-		}
-	}
-})();
-
-export default Cache
+export default Cache;

@@ -5,7 +5,7 @@
   <% if (htmlWebpackPlugin.files.favicon) { %>
     <link rel="shortcut icon" href="<%= htmlWebpackPlugin.files.favicon%>">
   <% } %>
-  <title>我要报修</title>
+  <title></title>
   <% if (htmlWebpackPlugin.files.css.length) { %>
     <link rel="stylesheet" href="<%= htmlWebpackPlugin.files.css[0] %>">
     <link rel="stylesheet" href="<%= htmlWebpackPlugin.files.css[1] %>">
@@ -14,7 +14,57 @@
 </head>
 <body>
   <div id="app">
-		<div class="icon-down"></div>
+		<div class="header">
+      <div class="headimg"></div>
+      <div class="nickname"></div>
+      <div class="mobile"></div>
+      <a href="" class="userinfo">完善联系方式</a>
+      <a href="" class="home"><div class="icon-mybaoxiu"></div></a>
+    </div>
+    <h1>填写报修卡</h1>
+    <div class="main">
+      <div class="one">
+        <div class="title">拍摄照片（最多三张）</div>
+        <div class="imgs">
+          <div class="img"></div>
+          <div class="img"></div>          
+          <div class="img"><div class="icon-upload"></div></div>
+        </div>
+      </div>
+      <div class="two">
+        <div class="body two-one">
+          <div class="title">报修大类</div>
+        <div id="select1" class="select">
+          <div class="select-name">请选择</div>
+          <div class="icon-down"></div>
+        </div>
+        </div>
+        <div class="body two-two">
+          <div class="title">报修小类</div>
+        <div id="select2" class="select">
+          <div class="select-name">请选择</div>
+          <div class="icon-down"></div>
+        </div>
+        </div>
+      </div>
+      <div class="three">
+        <div class="title">地址</div>
+        <div class="select">
+          <div class="select-name">请选择所在地址</div>
+          <div class="icon-down"></div>
+        </div>
+      </div>
+      <div class="four">
+        <div class="title">语音留言</div>
+        <div class="luyin"><div class="icon-luyin1"></div><div class="label">请按住说话</div></div>
+        <div class="yuyin"><div class="icon-yuyin"></div><div class="label">45</div><div class="label">''</div></div>
+      </div>
+      <div class="five">
+        <div class="title">文字备注</div>
+        <textarea class="beizhu" rows="5"></textarea>
+      </div>
+      <div class="btn btn-default">提交</div>
+    </div>
 	</div>
   <script type="text/javascript" src="<%= htmlWebpackPlugin.files.js[1] %>"></script>
 </body>
