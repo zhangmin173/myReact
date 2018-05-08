@@ -2,10 +2,11 @@
  * @Author: Zhang Min 
  * @Date: 2018-04-28 08:57:30 
  * @Last Modified by: Zhang Min
- * @Last Modified time: 2018-05-07 21:44:12
+ * @Last Modified time: 2018-05-08 09:08:30
  */
 
 import './index.less';
+import Pop from '../../../components/pop';
 import Toolkit from '../../../components/toolkit';
 import BetterPicker from 'better-picker';
 
@@ -17,6 +18,7 @@ $(function() {
 
             this.$select1 = $('#select1');
             this.$select2 = $('#select2');
+            this.$select3 = $('#select3');
 
             this.type1 = 0;
             this.type2 = 0;
@@ -75,6 +77,85 @@ $(function() {
             this.$select2.on('click',() => {
                 this.type2wheel.show();
             })
+
+            this.getAddress((data) => {
+                if (data.length) {
+                    this.addressData = data;
+                    const pickerData = this.getAddressPickerData();
+                    this.addressPicker = new BetterPicker({
+                        data: [
+                            pickerData
+                        ],
+                        title: '请选择地址'
+                    });
+
+                    this.addressPicker.on('picker.select', (selectedVal, selectedIndex) => {
+                        const addressId = selectedVal[0];
+                        this.addressDesc = this.getAddressById(addressId);
+                        this.$select3.find('.select-name').text(this.addressDesc.address_txt_1 + this.addressDesc.address_txt_2);
+                    })
+                }
+            })
+
+            this.$select3.on('click',() => {
+                this.addressPicker.show();
+            })
+
+            $('#submitBtn').on('click', () => {
+                const data = {
+                    work_imgs: [],
+                    work_phone: this.userinfo.user_phone,
+                    work_user_name: this.userinfo.user_name,
+                    work_type1: this.type1,
+                    work_type2: this.type2,
+                    work_address: '',
+                    work_address_x: this.addressData.work_address_x,
+                    work_address_y: this.addressData.work_address_y,
+                    project_id: this.addressData.project_id,
+                    work_voice: '',
+                    work_user_note: ''
+                }
+                console.log(data);
+                Toolkit.fetch({
+                    url: '/Work/createWork',
+                    data: data,
+                    success: (res) => {
+                        if (!res.success) {
+                            Pop.show(res.msg);
+                        }
+                    }
+                })
+            })
+        }
+        getAddress(cb) {
+            Toolkit.fetch({
+                url: '/Address/getAddresss',
+                success: (res) => {
+                    if (res.success) {
+                        cb && cb(res.data);
+                    }
+                }
+            })
+        }
+        getAddressPickerData(data) {
+            let arr = [];
+            this.addressData.forEach(item => {
+                const obj = {
+                    text: item.address_txt_1 + item.address_txt_2,
+                    value: item.address_id
+                }
+                arr.push(obj);
+            })
+            return arr;
+        }
+        getAddressById(address_id) {
+            let val = null;
+            this.addressData.forEach(item => {
+                if (item.address_id === address_id) {
+                    val = item;
+                }
+            });
+            return val;
         }
         getTypeById(type_id) {
             let val = null;
