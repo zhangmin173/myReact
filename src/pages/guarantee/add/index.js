@@ -2,13 +2,14 @@
  * @Author: Zhang Min 
  * @Date: 2018-04-28 08:57:30 
  * @Last Modified by: Zhang Min
- * @Last Modified time: 2018-05-08 09:08:30
+ * @Last Modified time: 2018-05-08 22:12:07
  */
 
 import './index.less';
 import Pop from '../../../components/pop';
 import Toolkit from '../../../components/toolkit';
 import BetterPicker from 'better-picker';
+import BenUploadUtils from '../../../components/upload/index';
 
 $(function() {
 
@@ -22,8 +23,56 @@ $(function() {
 
             this.type1 = 0;
             this.type2 = 0;
+            this.imgs = [];
         }
         init() {
+
+            BenUploadUtils({
+                dom: "#uploadBtn",		// 需要挂在的DOM
+                url: "/upload/img",				// 上传的服务器地址
+                limitSize: 10240000,    // 1024000kb
+                limitFormat: 'gif,jpg,jpeg,png,GIF,JPG,PNG', // 使用什么格式
+                limitSizeCallback: function(err){	// 限制大小的回调事件
+                    console.log(err);
+                },
+                limitFormatCallback: function(err){	// 限制格式的回调事件
+                    console.log(err);
+                },
+                onUploadBeforeCallback: function(res){	// 上传图片之前的回调事件
+                    console.log(res);
+                },
+                onUploadSuccessCallback: (res) => {	// 上传成功的回调事件
+                    res = JSON.parse(res);
+                    if (res.success) {
+                        const imgpath = res.data.url;
+                        this.imgs.push(imgpath);
+                        const index = this.imgs.length - 1;
+                        $('.imgs-box').append(`<div class="img" data-index=${index} data-url="${imgpath}" style="background-image:url('${imgpath}');"></div>`);
+                        if (this.imgs.length >= 3) {
+                            $('.upload').hide();
+                        }
+                    }
+                },
+                onUploadFailCallback: function(res){ // 上传失败的回调事件
+                    console.log(res);
+                },
+                onUploadAlwaysCallback: function(res){	// 上传无论什么结果的回调事件
+                    console.log(res);
+                },
+                onRenderResizerBefore: function(res){	// 压缩之前的回调事件
+                    //$("#preview").attr("src",res);
+                },
+                onRenderResizerAfter: function(res){	// 压缩之后的回调事件
+                    //$("#nextview").attr("src",res);
+                }
+            }).init();
+
+            $('.imgs-box').on('click', '.img', (e) => {
+                const index = e.target.dataset.index;
+                this.imgs.splice(index,1);
+                $('.imgs-box').find('.img').eq(index).remove();
+                $('.upload').show();
+            })
             
             this.getUserInfo((data) => {
                 this.userinfo = data;
@@ -92,6 +141,7 @@ $(function() {
                     this.addressPicker.on('picker.select', (selectedVal, selectedIndex) => {
                         const addressId = selectedVal[0];
                         this.addressDesc = this.getAddressById(addressId);
+                        console.log(this.addressDesc);
                         this.$select3.find('.select-name').text(this.addressDesc.address_txt_1 + this.addressDesc.address_txt_2);
                     })
                 }
@@ -103,17 +153,17 @@ $(function() {
 
             $('#submitBtn').on('click', () => {
                 const data = {
-                    work_imgs: [],
+                    work_imgs: this.imgs,
                     work_phone: this.userinfo.user_phone,
                     work_user_name: this.userinfo.user_name,
                     work_type1: this.type1,
                     work_type2: this.type2,
-                    work_address: '',
-                    work_address_x: this.addressData.work_address_x,
-                    work_address_y: this.addressData.work_address_y,
-                    project_id: this.addressData.project_id,
+                    work_address: this.addressDesc.address_txt_1 + this.addressDesc.address_txt_2,
+                    work_address_x: this.addressDesc.address_x,
+                    work_address_y: this.addressDesc.address_y,
+                    project_id: this.addressDesc.project_id,
                     work_voice: '',
-                    work_user_note: ''
+                    work_user_note: $('#beizhu').val()
                 }
                 console.log(data);
                 Toolkit.fetch({

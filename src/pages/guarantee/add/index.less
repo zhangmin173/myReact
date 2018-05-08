@@ -89,12 +89,24 @@
         margin-right: 15/@rem;
         .wd(158,158);
         border: 1/@rem solid #eee;
-        background-size: 100%;
+        background-size: 100% 100%;
         background-repeat: no-repeat;
 
         .icon-upload {
           margin-left: 47/@rem;
           margin-top: 47/@rem;
+        }
+      }
+
+      .upload {
+        position: relative;
+
+        input {
+          position: absolute;
+          left: 0;
+          top: 0;
+          .wd(158,158);
+          opacity: 0;
         }
       }
     }
