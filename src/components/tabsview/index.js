@@ -2,7 +2,7 @@
  * @Author: Zhang Min 
  * @Date: 2018-05-03 07:50:42 
  * @Last Modified by: Zhang Min
- * @Last Modified time: 2018-05-04 15:35:10
+ * @Last Modified time: 2018-05-12 13:20:45
  */
 
 /**
@@ -11,6 +11,7 @@
 import './index.less';
 import Toolkit from '../toolkit';
 import Event from '../event';
+import Listview from '../listview/index';
 
 class Tabsview {
     constructor(opt) {
@@ -34,8 +35,26 @@ class Tabsview {
         ];
         this.tabNum = this.tabs.length;
         this.tabIndex = this.opt.tabIndex || 0;
+        this.listviews = [];
     }
     init() {
+        this.on('tabChange', (tabIndex, wrapper) => {
+            if (this.listviews[tabIndex]) {
+
+            } else {
+                const listview = new Listview({
+                    url: this.tabs[tabIndex].url,
+                    querys: this.tabs[tabIndex].querys,
+                    wrapper: wrapper.find('ul'),
+                    debug: true
+                });
+                this.listviews[tabIndex] = listview;
+                this.listviews[tabIndex].on('success', res => {
+                    this.emit('success', res, tabIndex, wrapper, this);
+                })
+                this.listviews[tabIndex].init();
+            }
+        })
         // 初始化dom
         this.$wrapper.append(this._createTabs(this.tabs));
         // 获取一些dom
@@ -46,8 +65,6 @@ class Tabsview {
         this._setTranslition(this.$tabContentAnimation, this.timeout);
         // 触发首次显示事件
         this.emit('tabChange', this.tabIndex, this.$tabContents.eq(this.tabIndex));
-        // 首次加载数据
-        this._loading(this.tabIndex);
         // 首次显示pannel
         this._translate(this.$tabContentAnimation, -this.width * this.tabIndex);
 
@@ -96,7 +113,7 @@ class Tabsview {
     _createTabContents(tabs) {
         let tabsCopntentHtml = '';
         tabs.forEach((item, i) => {
-            tabsCopntentHtml += `<div class="tab-content" style="width:${this.width}px;">
+            tabsCopntentHtml += `<div class="tab-content listview-components" style="width:${this.width}px;">
                 <ul></ul>
             </div>`;
         });
@@ -120,32 +137,6 @@ class Tabsview {
         if (this.debug) {
             console.log(msg);
         }
-    }
-    _loading(nowIndex) {
-        this.isLoading = true;
-        Toolkit.fetch({
-            url: this.url,
-            type: this.type,
-            data: this._getQuerys(),
-            success: (res) => {
-                const data = res.data instanceof Array ? res.data : [];
-                if (res.success && data.length) {
-                    this.total += data.length;
-                    this.pageIndex++;
-                    this.emit('success', res);
-                    this.isLoading = false;
-                } else if (res.success && data.length === 0) {
-                    this.finished = true;
-                    this.emit('finished', res);
-                } else {
-                    console.error(res.msg);
-                    this.emit('error', res);
-                }
-            }
-        })
-    }
-    _getQuerys() {
-        return Object.assign({ page_number: this.pageIndex, page_limit: this.pageSize }, this.querys);
     }
 }
 export default Tabsview;

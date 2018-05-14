@@ -8,6 +8,7 @@
   padding: 0 @g;
   height: 100%;
   background-color: #fff;
+  display: none;
 
   .header {
     padding-top: 60/@rem;
@@ -159,6 +160,14 @@
       }
       .luyin {
         text-align: center;
+        cursor: pointer;
+        -webkit-touch-callout:none;  /*系统默认菜单被禁用*/
+    -webkit-user-select:none; /*webkit浏览器*/
+    -khtml-user-select:none; /*早期浏览器*/
+    -moz-user-select:none;/*火狐*/
+    -ms-user-select:none; /*IE10*/
+    user-select:none;
+
         .icon-luyin1 {
           display: inline-block;
           margin-right: @g/2;
@@ -187,6 +196,68 @@
     }
   }
 
+}
+
+#night {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  transition: all 1s;
+
+  .overlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,.75);
+  }
+
+  .body {
+    position: absolute;
+    box-sizing: border-box;
+    left: 50%;
+    top: 228/@rem;
+    padding: 127/@rem 64/@rem;
+    transform: translate(-50%);
+    .wd(644,636);
+    border-radius: 10/@rem;
+    background-color: rgba(93, 93, 93, .9);
+  }
+
+  .text {
+    font-size: 34/@rem;
+    color: #FFFFFF;
+    letter-spacing: 0;
+    line-height: 1.45;
+  }
+
+  .tel {
+    display: block;
+    margin-top: 36/@rem;
+    width: 100%;
+    height: 112/@rem;
+    line-height: 112/@rem;
+    background-color: #fff;
+    border-radius: 6/@rem;
+    font-size: 48/@rem;
+    color: #606266;
+    letter-spacing: 0;
+    text-decoration: none;
+    text-align: center;
+  }
+
+  .moon {
+    position: absolute;
+    right: -20/@rem;
+    top: -100/@rem;
+    .wd(214,269);
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
 }
 
 

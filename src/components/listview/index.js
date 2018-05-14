@@ -2,7 +2,7 @@
  * @Author: Zhang Min 
  * @Date: 2018-05-03 07:50:42 
  * @Last Modified by: Zhang Min
- * @Last Modified time: 2018-05-04 14:51:54
+ * @Last Modified time: 2018-05-12 13:21:00
  */
 
 /**
@@ -18,7 +18,7 @@ class Listview {
         this.opt = opt;
         
         this.debug = this.opt.debug || false; // 开启调试
-        this.dropDownRefresh = this.opt.dropDownRefresh || true; // 开启下拉刷新
+        this.dropDownRefresh = this.opt.dropDownRefresh || false; // 开启下拉刷新
         this.url = this.opt.url;
         this.type = this.opt.type || 'get';
         this.total = 0;

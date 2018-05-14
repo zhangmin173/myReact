@@ -2,7 +2,7 @@
  * @Author: 张敏 
  * @Date: 2018-04-17 08:41:11 
  * @Last Modified by: Zhang Min
- * @Last Modified time: 2018-05-04 08:15:19
+ * @Last Modified time: 2018-05-12 12:35:46
  */
 
 /**
@@ -48,6 +48,30 @@ const Toolkit = (function () {
      */
     mobile2show(tel) {
       return tel.substr(0, 3) + '****' + tel.substr(7);;
+    },
+    /**
+     * 获取工单类型
+     * @param {工单类型} type 
+     */
+    getWorkTypes(index) {
+      return ['to_send','to_deal','in_deal','to_delay','over'];
+    },
+    /**
+     * 获取工单类型字段
+     * @param {工单类型} type 
+     */
+    getWorkStatus(type) {
+      const status = {
+        to_send: '待处理',
+        to_deal: '派单中',
+        in_deal: '处理中',
+        to_delay: '延期转单',
+        over: '已完成'
+      };
+      if (status[type]) {
+        return status[type];
+      }
+      return status.to_send;
     }
   }
 })();

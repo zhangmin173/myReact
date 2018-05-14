@@ -27,7 +27,7 @@
         <div class="title">拍摄照片（最多三张）</div>
         <div class="imgs">
           <div class="imgs-box"></div>                   
-          <div class="img upload"><div class="icon-upload"></div><input id="uploadBtn" type="file" name="img"/></div>
+          <div class="img upload"><div class="icon-upload"></div><input id="uploadBtn" type="file" name="image"/></div>
         </div>
       </div>
       <div class="two">
@@ -55,8 +55,8 @@
       </div>
       <div class="four">
         <div class="title">语音留言</div>
-        <div class="luyin"><div class="icon-luyin1"></div><div class="label">请按住说话</div></div>
-        <div class="yuyin"><div class="icon-yuyin"></div><div class="label">45</div><div class="label">''</div></div>
+        <div id="luyin" class="luyin"><div class="icon-luyin1"></div><div class="label">请点击说话</div></div>
+        <div id="yuyin" class="yuyin"><div class="icon-yuyin"></div><div class="label time">0</div><div class="label">''</div></div>
       </div>
       <div class="five">
         <div class="title">文字备注</div>
@@ -64,7 +64,18 @@
       </div>
       <div id="submitBtn" class="btn btn-default">提交</div>
     </div>
-	</div>
+  </div>
+  <div id="night">
+    <div class="overlay"></div>
+    <div class="body">
+      <div class="text">
+        晚上好，<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当前时段系统回复较慢，若您有急事，可以直接拨打热线电话联系我们哦。
+      </div>
+      <a class="tel" href="tel:0571-87654321">0571-87654321</a>
+      <div class="moon"></div>
+    </div>
+  </div>
   <script type="text/javascript" src="<%= htmlWebpackPlugin.files.js[1] %>"></script>
 </body>
 </html>

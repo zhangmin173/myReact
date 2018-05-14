@@ -8,7 +8,9 @@ function mock() {
         work_user_name: '报修用户名称',
         user_id: 1,
         work_imgs: [
-  
+          'https://gss0.baidu.com/-vo3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/810a19d8bc3eb135c6923a3ea71ea8d3fc1f44da.jpg',
+          'https://gss0.baidu.com/-vo3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/810a19d8bc3eb135c6923a3ea71ea8d3fc1f44da.jpg',
+          'https://gss0.baidu.com/-vo3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/810a19d8bc3eb135c6923a3ea71ea8d3fc1f44da.jpg'
         ],
         work_type_1: '生活',
         work_type_2: '维修',
@@ -16,7 +18,7 @@ function mock() {
         work_address_x: '',
         work_address_y: '',
         work_voice: '',
-        work_status: 1,
+        work_status: 'to_send',
         work_worker_id: 1,
         work_worker_name: '接单人',
         work_worker_phone: '12345678910',
@@ -40,7 +42,7 @@ function mock() {
         work_address_x: '',
         work_address_y: '',
         work_voice: '',
-        work_status: 1,
+        work_status: 'to_deal',
         work_worker_id: 1,
         work_worker_name: '接单人',
         work_worker_phone: '12345678910',
@@ -64,7 +66,7 @@ function mock() {
         work_address_x: '',
         work_address_y: '',
         work_voice: '',
-        work_status: 1,
+        work_status: 'in_deal',
         work_worker_id: 1,
         work_worker_name: '接单人',
         work_worker_phone: '12345678910',
@@ -88,7 +90,7 @@ function mock() {
         work_address_x: '',
         work_address_y: '',
         work_voice: '',
-        work_status: 1,
+        work_status: 'to_delay',
         work_worker_id: 1,
         work_worker_name: '接单人',
         work_worker_phone: '12345678910',
@@ -104,7 +106,8 @@ function mock() {
         work_user_name: '报修用户名称',
         user_id: 1,
         work_imgs: [
-  
+          'https://gss0.baidu.com/-vo3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/810a19d8bc3eb135c6923a3ea71ea8d3fc1f44da.jpg',
+          'https://gss0.baidu.com/-vo3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/810a19d8bc3eb135c6923a3ea71ea8d3fc1f44da.jpg'
         ],
         work_type_1: '生活',
         work_type_2: '维修',
@@ -112,7 +115,7 @@ function mock() {
         work_address_x: '',
         work_address_y: '',
         work_voice: '',
-        work_status: 1,
+        work_status: 'over',
         work_worker_id: 1,
         work_worker_name: '接单人',
         work_worker_phone: '12345678910',
