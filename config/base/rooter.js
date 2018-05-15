@@ -20,7 +20,16 @@ router.all('*', (req, res) => {
   if (req.path.indexOf('html') !== -1) {
     
   } else {
-    res.json(require('../../mock' + req.path)());
+    fs.exists('../../mock' + req.path, (exists) => {
+      if (exists) {
+        res.json(require('../../mock' + req.path)());
+      } else {
+        res.json({
+          success: true,
+          msg: '成功'
+        });
+      }
+    })
   } 
 });
 

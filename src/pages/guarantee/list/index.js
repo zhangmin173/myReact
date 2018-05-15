@@ -2,26 +2,20 @@
  * @Author: Zhang Min 
  * @Date: 2018-04-28 08:57:30 
  * @Last Modified by: Zhang Min
- * @Last Modified time: 2018-05-12 13:07:36
+ * @Last Modified time: 2018-05-15 07:55:58
  */
 
 import './index.less';
-import template from '../../../../libs/lib-artTemplate/index';
+import Template from '../../../../libs/lib-artTemplate/index';
 import Tabsview from '../../../components/tabsview/index';
 import Toolkit from '../../../components/toolkit';
 
 $(function () {
     class Index {
         constructor() {
-            // this.loader = new Listview({
-            //     url: '/Work/getWorks',
-            //     querys: {
-            //         work_id: 1
-            //     },
-            //     wrapper: $('.wrapper ul')        
-            // });
             this.workTypes = Toolkit.getWorkTypes();
             this.tabs = new Tabsview({
+                timeout: 300,
                 tabs: [
                     {
                         title: '待处理',
@@ -63,16 +57,8 @@ $(function () {
 
         }
         init() {
-            // this.loader.on('success', res => {
-            //     const html = template('tpl-work',res);
-            //     this.loader.$wrapper.append(html);
-            // })
-            // this.loader.on('finished',res => {
-            //     console.log(res);
-            // })
-
             this.tabs.on('success', (res, tabIndex, tabContent, that) => {
-                const html = template('tpl-work-1', res);
+                const html = Template('tpl-work-1', res);
                 tabContent.find('ul').append(html);
             })
             this.tabs.init();

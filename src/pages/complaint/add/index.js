@@ -2,15 +2,18 @@
  * @Author: Zhang Min 
  * @Date: 2018-04-28 08:57:30 
  * @Last Modified by: Zhang Min
- * @Last Modified time: 2018-05-14 08:45:14
+ * @Last Modified time: 2018-05-15 08:08:26
  */
 
 import './index.less';
+import Pop from '../../../components/pop';
+import Toolkit from '../../../components/toolkit';
 
 $(function() {
     class Index {
         constructor() {
-            this.$input1 = $('#input-1');
+            this.$complaint = $('#complaint');
+            this.postData = {};
         }
         init() {
             
@@ -18,23 +21,27 @@ $(function() {
         }
         events() {
 
-
             // 保存
             $('#btn').on('click',() => {
-                
-                this.saveAddress(this.formdata);
+                this.postData.complainit = this.$complaint.val();
+                console.log(this.postData);
+                if (this.postData.complainit) {
+                    this.save(this.postData);
+                }
             })
 
         }
-        saveAddress(data) {
-            pop.show('success','提交中，请稍后');
-            toolkit.fetch({
-                url: '/Address/createAddress',
+        save(data) {
+            Toolkit.fetch({
+                url: '/Complainit/createComplainit',
                 data,
                 success: (res) => {
                     if (res.success) {
-                        //window.location.href = ''
+                        Pop.show('success',res.msg).hide();
                     }
+                },
+                error: () => {
+                    Pop.show('error','服务器异常').hide();
                 }
             })
         }
