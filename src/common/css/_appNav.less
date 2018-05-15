@@ -1,13 +1,25 @@
 .app-nav {
     position: relative;
     height: 98/@rem;
-    background-color: @default;
+    background-color: @lightBlack;
     color: #fff;
     text-align: center;
   
     .app-nav-left {
       .ps(20,20);
       .wd(58,58);
+      line-height: 58/@rem;
+      text-align: center;
+  
+      &.iconfont {
+        font-size: 58/@rem;
+        line-height: 1;
+      }
+    }
+
+    a.app-nav-left,a.app-nav-right {
+      text-decoration: none;
+      color: #fff;
     }
   
     .app-nav-title {

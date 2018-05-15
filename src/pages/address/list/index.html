@@ -15,27 +15,25 @@
 <body>
   <div id="app">
     <div class="app-nav">
+        <a href="../../user/center/index.html" class="app-nav-left iconfont">&#xe720;</a>
       <div class="app-nav-title">我的地址</div>
       <a href="../add/index.html" class="app-nav-right iconfont">&#xe6e0;</a>
     </div>
-    <div class="address-list">
-      <a href="../edit/index.html?id=1" class="address-list-item">
-        <div class="list-item-title">新青年白领公寓</div>
-        <div class="list-item-desc">浙江省杭州市西溪湿地公园浙江省杭州市西溪湿地公园浙江省杭州市西溪湿地公园</div>
-        <div class="list-item-enter iconfont">&#xe6f8;</div>
-      </a>
-      <a href="../edit/index.html?id=1" class="address-list-item">
-        <div class="list-item-title">新青年白领公寓</div>
-        <div class="list-item-desc">浙江省杭州市西溪湿地公园</div>
-        <div class="list-item-enter iconfont">&#xe6f8;</div>
-      </a>
-      <a href="../edit/index.html?id=1" class="address-list-item">
-        <div class="list-item-title">新青年白领公寓</div>
-        <div class="list-item-desc">浙江省杭州市西溪湿地公园</div>
-        <div class="list-item-enter iconfont">&#xe6f8;</div>        
-      </a>
+    <div class="listview-components">
+      <ul class="address-list"></ul>
     </div>
-	</div>
+  </div>
+  <script id="tpl" type="text/html">
+    {{each data as item}}
+    <li>
+      <a href="../edit/index.html?id={{item.address_id}}&projectId={{item.project_id}}" class="address-list-item">
+        <div class="list-item-title">{{item.address_txt_1}}</div>
+        <div class="list-item-desc">{{item.address_txt_2}}</div>
+        <div class="list-item-enter iconfont">&#xe6f8;</div>
+      </a>
+    </li>
+    {{/each}}
+  </script>
   <script type="text/javascript" src="<%= htmlWebpackPlugin.files.js[1] %>"></script>
 </body>
 </html>

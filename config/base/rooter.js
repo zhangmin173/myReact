@@ -20,7 +20,8 @@ router.all('*', (req, res) => {
   if (req.path.indexOf('html') !== -1) {
     
   } else {
-    fs.exists('../../mock' + req.path, (exists) => {
+    const file = path.join(__dirname,'../../mock' + req.path + '.js');
+    fs.exists(file, (exists) => {
       if (exists) {
         res.json(require('../../mock' + req.path)());
       } else {

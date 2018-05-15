@@ -2,7 +2,7 @@
  * @Author: Zhang Min 
  * @Date: 2018-04-28 08:57:30 
  * @Last Modified by: Zhang Min
- * @Last Modified time: 2018-05-01 09:52:28
+ * @Last Modified time: 2018-05-15 21:09:49
  */
 
 import './index.less';
@@ -29,21 +29,21 @@ $(function() {
 
             // 保存
             $('#btn').on('click',() => {
-                this.formdata.input1 = this.$input1.find('input').val();
-                this.formdata.input2 = this.$input2.find('input').val();
+                this.formdata.user_name = this.$input1.find('input').val();
+                this.formdata.user_phone = this.$input2.find('input').val();
                 console.log(this.formdata);
-                if (!this.formdata.input1) {
-                    pop.show('error','姓名不能为空').hide(800);
-                    return false;
-                }
-                if (this.formdata.input2) {
-                    pop.show('error','手机号不能为空').hide(800);
-                    return false;
-                }
-                if (!reg.isMobile(this.formdata.input2)) {
-                    pop.show('error','请填写正确的手机号').hide(800);
-                    return false;
-                }
+                // if (!this.formdata.user_name) {
+                //     pop.show('error','姓名不能为空').hide(800);
+                //     return false;
+                // }
+                // if (this.formdata.user_phone) {
+                //     pop.show('error','手机号不能为空').hide(800);
+                //     return false;
+                // }
+                // if (!reg.isMobile(this.formdata.user_phone)) {
+                //     pop.show('error','请填写正确的手机号').hide(800);
+                //     return false;
+                // }
                 this.saveInformation(this.formdata);
             })
 
@@ -70,12 +70,15 @@ $(function() {
             return apptitle;
         }
         saveInformation(data) {
-            pop.show('success','提交中，请稍后');
             toolkit.fetch({
                 url: '/User/updateUser',
                 data,
                 success: (res) => {
-                    
+                    if (res.success) {
+                        pop.show('success',res.msg).hide();
+                    } else {
+                        pop.show('error',res.msg).hide();
+                    }
                 }
             })
         }

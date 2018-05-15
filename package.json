@@ -4,7 +4,7 @@
   "description": "create my react-admin",
   "main": "index.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=dev node ./config/app.js",
+    "dev": "cross-env NODE_ENV=dev node ./config/app.js",
     "build": "cross-env NODE_ENV=prod webpack --config ./config/prod.conf.js",
     "test": "cross-env NODE_ENV=test webpack --config ./config/test.conf.js",
     "dll": "cross-env NODE_ENV=prod webpack --config ./config/dll.conf.js"

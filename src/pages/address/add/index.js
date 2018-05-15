@@ -2,7 +2,7 @@
  * @Author: Zhang Min 
  * @Date: 2018-04-28 08:57:30 
  * @Last Modified by: Zhang Min
- * @Last Modified time: 2018-05-01 10:20:49
+ * @Last Modified time: 2018-05-15 20:56:58
  */
 
 import './index.less';
@@ -76,8 +76,11 @@ $(function() {
                 url: '/Address/createAddress',
                 data,
                 success: (res) => {
+                    pop.hide(0);
                     if (res.success) {
-                        //window.location.href = ''
+                        window.location.href = '../list/index.html';
+                    } else {
+                        pop.show('error',res.msg).hide();
                     }
                 }
             })
