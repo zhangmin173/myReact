@@ -2,7 +2,7 @@
  * @Author: 张敏 
  * @Date: 2018-04-17 08:41:11 
  * @Last Modified by: Zhang Min
- * @Last Modified time: 2018-05-15 08:26:05
+ * @Last Modified time: 2018-05-16 21:10:13
  */
 
 /**
@@ -74,6 +74,15 @@ const Toolkit = (function () {
         return status[type];
       }
       return status.to_send;
+    },
+    /**
+     * 获取腾讯地图key
+     */
+    getMapInfo() {
+      return {
+        key: 'YL2BZ-2MRLU-HG7VH-B46PY-DMJW3-55FCV',
+        app: 'xiongwei'
+      };
     }
   }
 })();

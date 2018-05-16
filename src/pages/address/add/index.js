@@ -2,13 +2,14 @@
  * @Author: Zhang Min 
  * @Date: 2018-04-28 08:57:30 
  * @Last Modified by: Zhang Min
- * @Last Modified time: 2018-05-15 20:56:58
+ * @Last Modified time: 2018-05-16 22:32:51
  */
 
 import './index.less';
 import toolkit from '../../../components/toolkit';
 import pop from '../../../components/pop';
 import reg from '../../../components/reg';
+import Map from '../../../components/map/index';
 
 $(function() {
     
@@ -27,16 +28,39 @@ $(function() {
                 address_user_name: '',
                 address_phone: ''
             };
+            this.mapinfo = toolkit.getMapInfo();
         }
         init() {
-            
+            this.getProjectsNear(res => {
+                const data = this.initProjectData(res.data);
+                this.map = new Map({
+                    data: data,
+                    key: this.mapinfo.key,
+                    app: this.mapinfo.app
+                })
+                this.map.show();
+            })
             this.events()
+        }
+        initProjectData(array) {
+            let arr = [];
+            for (let index = 0; index < array.length; index++) {
+                const item = array[index];
+                const element = {
+                    x: item.address_x,
+                    y: item.address_y,
+                    title: item.title,
+                    addr: item.project_address
+                };
+                arr.push(element);
+            }
+            return arr;
         }
         events() {
 
             // 打开地图
             this.$input1.on('click',() => {
-
+                // qq.maps.Geolocation(this.mapinfo.key, this.mapinfo.app);
             })
 
             // 保存
@@ -69,6 +93,22 @@ $(function() {
             //     $input2val.addClass('hide');
             //     $input2val.val('');
             // })
+        }
+        getProjectsNear(cb) {
+            toolkit.fetch({
+                url: '/Project/getProjectsNear',
+                data: {
+
+                },
+                success: (res) => {
+                    pop.hide(0);
+                    if (res.success) {
+                        cb && cb(res);
+                    } else {
+                        pop.show('error',res.msg).hide();
+                    }
+                }
+            })
         }
         saveAddress(data) {
             pop.show('success','提交中，请稍后');

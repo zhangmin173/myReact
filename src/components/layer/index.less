@@ -1,0 +1,24 @@
+@rem: 200rem;
+@url: '';
+
+.wd(@w,@h) {
+    width: @w/@rem;
+    height: @h/@rem;
+}
+
+.bg(@img) {
+    background-image: url('@{url}@{img}');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.pl(@top,@left) {
+    position: absolute;
+    left: @left/@rem;
+    top: @top/@rem;
+}
+.pr(@top,@right) {
+    position: absolute;
+    right: @right/@rem;
+    top: @top/@rem; 
+}
