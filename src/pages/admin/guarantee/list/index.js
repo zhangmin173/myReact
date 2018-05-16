@@ -2,13 +2,14 @@
  * @Author: Zhang Min 
  * @Date: 2018-04-28 08:57:30 
  * @Last Modified by: Zhang Min
- * @Last Modified time: 2018-05-15 21:19:22
+ * @Last Modified time: 2018-05-16 08:52:40
  */
 
 import './index.less';
 import Template from '../../../../../libs/lib-artTemplate/index';
 import Tabsview from '../../../../components/tabsview/index';
 import Toolkit from '../../../../components/toolkit';
+import BetterPicker from 'better-picker';
 
 $(function () {
     class Index {
@@ -62,11 +63,54 @@ $(function () {
                 tabContent.find('ul').append(html);
             })
             this.tabs.init();
+
+            // 获取报修类型
+            this.getWorkers((data) => {
+                this.workers = data;
+                const workers = this.createData(this.workers);
+                this.workerwheel = new BetterPicker({
+                    data: [
+                        workers
+                    ],
+                    title: '派单给维修员'
+                });
+                
+                this.workerwheel.on('picker.select', (selectedVal, selectedIndex) => {
+                    this.worker = selectedVal[0];
+                })
+            })
+            
             this.events();
         }
         events() {
+            const self = this;
             // todo
-
+            $('.tabs-components').on('click', '.paijian', function() {
+                const id = $(this).data('id');
+                const type = $(this).data('type');
+                self.workerwheel.show();
+            })
+        }
+        createData(data) {
+            let arr = [];
+            data.forEach(item => {
+                const obj = {
+                    text: item.type_name,
+                    value: item.type_id
+                }
+                arr.push(obj);
+            })
+            return arr;
+        }
+        getWorkers(cb) {
+            Toolkit.fetch({
+                url: '/Address/getAddresss',
+                success: (res) => {
+                    if (res.success) {
+                        cb && cb(res.data);
+                    }
+                }
+            })
         }
     }
 

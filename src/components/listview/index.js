@@ -2,7 +2,7 @@
  * @Author: Zhang Min 
  * @Date: 2018-05-03 07:50:42 
  * @Last Modified by: Zhang Min
- * @Last Modified time: 2018-05-12 13:21:00
+ * @Last Modified time: 2018-05-16 08:52:25
  */
 
 /**
@@ -15,7 +15,7 @@ import Event from '../event';
 class Listview {
     constructor(opt) {
         Object.assign(this, Event);
-        this.opt = opt;
+        this.opt = opt || {};
         
         this.debug = this.opt.debug || false; // 开启调试
         this.dropDownRefresh = this.opt.dropDownRefresh || false; // 开启下拉刷新
@@ -44,7 +44,6 @@ class Listview {
         });
         // 下拉刷新
         this.on('dropDownRefresh',() => {
-            console.log('dropDownRefresh')
             this.reLoad();
         })
         if (this.dropDownRefresh) {

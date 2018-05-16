@@ -2,7 +2,7 @@
  * @Author: Zhang Min 
  * @Date: 2018-05-03 07:50:42 
  * @Last Modified by: Zhang Min
- * @Last Modified time: 2018-05-12 13:20:45
+ * @Last Modified time: 2018-05-16 08:52:34
  */
 
 /**
@@ -17,7 +17,7 @@ class Tabsview {
     constructor(opt) {
         Object.assign(this, Event);
         this.opt = opt || {};
-        //this.debug = this.opt.debug || false; // 开启调试
+        this.debug = this.opt.debug || false; // 开启调试
         this.$wrapper = this.opt.wrapper || $('.tabs-components');
         this.width = this.$wrapper.width();
         this.timeout = this.opt.timeout || 800;
@@ -46,7 +46,7 @@ class Tabsview {
                     url: this.tabs[tabIndex].url,
                     querys: this.tabs[tabIndex].querys,
                     wrapper: wrapper.find('ul'),
-                    debug: true
+                    debug: false
                 });
                 this.listviews[tabIndex] = listview;
                 this.listviews[tabIndex].on('success', res => {

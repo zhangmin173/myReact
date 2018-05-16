@@ -19,16 +19,13 @@
   <script id="tpl-work-1" type="text/html">
     {{each data as item i}}
     <li class="panel">
-      {{if item.work_imgs.length}}
-      <div class="imgs">
-        {{each item.work_imgs as img}}
-        <div class="img" style="background-image:url({{img}})" data-url="{{img}}"></div>
-        {{/each}}
+      <div class="item user">
+        <div class="headimg"></div>
+        <div class="name">{{item.work_user_name}}</div>
+        <div class="time">{{item.create_time}}</div>
       </div>
-      {{/if}}
-      <div class="item">
-        <div class="label time">{{item.create_time}}</div>
-        <div class="type">{{item.work_type_1 + '-' + item.work_type_2}}</div>
+      <div class="item type">
+        <div class="type-label">{{item.work_type_1 + '-' + item.work_type_2}}</div>
       </div>
       <div class="item">
         <div class="icon icon-address"></div>
@@ -48,6 +45,13 @@
       <div class="item">
         <div class="icon icon-beizhu"></div>
         <div class="label beizhu">{{item.work_worker_note}}</div>
+      </div>
+      {{/if}}
+      {{if item.work_imgs.length}}
+      <div class="imgs">
+        {{each item.work_imgs as img}}
+        <div class="img" style="background-image:url({{img}})" data-url="{{img}}"></div>
+        {{/each}}
       </div>
       {{/if}}
       {{if item.work_status !== 'to_send'}}
@@ -70,6 +74,18 @@
         </div>
         </div>
       </div>
+      {{/if}}
+      {{if item.work_status === 'to_send'}}
+        <div class="ac paijian" data-id={{item.work_id}} data-type="{{item.work_status}}">
+          去派单
+          <div class="icon-box"><div class="icon icon-paijian"></div></div>
+        </div>
+      {{/if}}
+      {{if item.work_status === 'to_deal'}}
+        <a class="ac" href="tel:{{item.work_worker_phone}}">
+          呼叫接单人
+          <div class="icon-box"><div class="icon icon-phone"></div></div>
+        </a>
       {{/if}}
     </li>
     {{/each}}

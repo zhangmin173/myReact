@@ -30,19 +30,82 @@
   
       li {
         background-color: #fff;
-        margin-bottom: @g;
+        margin-bottom: 92/@rem;
       }
     }
   }
 
   .panel {
+    position: relative;
     box-sizing: border-box;
-    padding: 20/@rem;
+    padding: 20/@rem 20/@rem 80/@rem;
     box-shadow: 0 2/@rem 12/@rem 0 rgba(116,116,116,0.20);
     border-radius: 10/@rem;
 
+    .ac {
+      padding: 0 120/@rem 0 40/@rem;
+      box-sizing: border-box;
+      position: absolute;
+      left: 50%;
+      bottom: -52/@rem;
+      transform: translate(-50%);
+      height: 104/@rem;
+      min-width: 208/@rem;
+      line-height: 104/@rem;
+      background-color: rgba(239, 82, 52, .7);
+      border-radius: 100/@rem;
+      color: #fff;
+      font-size: 32/@rem;
+      text-decoration: none;
+
+      .icon-box {
+        position: absolute;
+        right: 8/@rem;
+        top: 8/@rem; 
+        .wd(88,88);
+        border-radius: 50%;
+        background-color: rgba(239, 82, 52, 1);
+        border: 1/@rem solid #EF5234;
+        text-align: center;
+
+        .icon {
+          margin: 20/@rem auto;
+        }
+      }
+
+    }
+
+    .user {
+      position: relative;
+      
+      .headimg {
+        .wd(56,56);
+        background-size: cover;
+        background-repeat: no-repeat;
+        border: 1/@rem solid #eee;
+        border-radius: 50%;
+      }
+
+      .name {
+        position: absolute;
+        left: 70/@rem;
+        top: 15/@rem;
+        font-size: 30/@rem;
+        color: #303133;
+      }
+
+      .time {
+        position: absolute;
+        right: 0;
+        top: 15/@rem;
+        font-size: 28/@rem;
+        color: #909399;
+      }
+    }
+
     .imgs {
       overflow: hidden;
+      margin-bottom: @g;
 
       .img {
         float: left;
@@ -69,22 +132,19 @@
         display: inline-block;
       }
 
-      .type {
+      &.type {
+        height: 40/@rem;
+      }
+
+      .type-label {
         position: absolute;
         right: 0;
-        bottom: 0;
+        top: 0;
         padding: 5/@rem 10/@rem;
         border-radius: 6/@rem;
         background-color: @c1;
         color: #fff;
         font-size: 24/@rem;
-      }
-
-      .time {
-        left: 0;
-        font-size: 30/@rem;
-        color: @black;
-        .regular();
       }
 
       .address {
