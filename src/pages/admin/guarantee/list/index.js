@@ -2,10 +2,11 @@
  * @Author: Zhang Min 
  * @Date: 2018-04-28 08:57:30 
  * @Last Modified by: Zhang Min
- * @Last Modified time: 2018-05-16 08:52:40
+ * @Last Modified time: 2018-05-17 09:02:19
  */
 
 import './index.less';
+import Pop from '../../../../components/pop';
 import Template from '../../../../../libs/lib-artTemplate/index';
 import Tabsview from '../../../../components/tabsview/index';
 import Toolkit from '../../../../components/toolkit';
@@ -74,9 +75,9 @@ $(function () {
                     ],
                     title: '派单给维修员'
                 });
-                
                 this.workerwheel.on('picker.select', (selectedVal, selectedIndex) => {
-                    this.worker = selectedVal[0];
+                    const worker = this.workers[selectedIndex[0]];
+                    this.paijian(worker);
                 })
             })
             
@@ -86,25 +87,44 @@ $(function () {
             const self = this;
             // todo
             $('.tabs-components').on('click', '.paijian', function() {
-                const id = $(this).data('id');
-                const type = $(this).data('type');
+                self.work_id = $(this).data('id');
                 self.workerwheel.show();
+            })
+        }
+        paijian(worker) {
+            if (!this.work_id) {
+                return false;
+            }
+            Toolkit.ajax({
+                url: '/Work/updateWork',
+                data: {
+                    work_id: this.work_id,
+                    work_worker_id: worker.work_id,
+                    work_worker_name: worker.worker_name,
+                    work_worker_phone: worker.worker_phone
+                },
+                success: res => {
+                    if (res.success) {
+                        this.work_id = 0;
+                        Pop.show('success', res.msg).hide();
+                    }
+                }
             })
         }
         createData(data) {
             let arr = [];
             data.forEach(item => {
                 const obj = {
-                    text: item.type_name,
-                    value: item.type_id
+                    text: item.worker_name,
+                    value: item.worker_id
                 }
                 arr.push(obj);
             })
             return arr;
         }
         getWorkers(cb) {
-            Toolkit.fetch({
-                url: '/Address/getAddresss',
+            Toolkit.ajax({
+                url: '/Worker/getWorkers',
                 success: (res) => {
                     if (res.success) {
                         cb && cb(res.data);

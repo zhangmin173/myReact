@@ -2,7 +2,7 @@
  * @Author: Zhang Min 
  * @Date: 2018-04-28 08:57:30 
  * @Last Modified by: Zhang Min
- * @Last Modified time: 2018-05-16 22:32:51
+ * @Last Modified time: 2018-05-17 08:36:21
  */
 
 import './index.less';
@@ -36,9 +36,9 @@ $(function() {
                 this.map = new Map({
                     data: data,
                     key: this.mapinfo.key,
-                    app: this.mapinfo.app
+                    app: this.mapinfo.app,
+                    listview: 2
                 })
-                this.map.show();
             })
             this.events()
         }
@@ -47,8 +47,8 @@ $(function() {
             for (let index = 0; index < array.length; index++) {
                 const item = array[index];
                 const element = {
-                    x: item.address_x,
-                    y: item.address_y,
+                    lat: item.address_x,
+                    lng: item.address_y,
                     title: item.title,
                     addr: item.project_address
                 };
@@ -58,9 +58,20 @@ $(function() {
         }
         events() {
 
+            // $('#' + this.map.id).on('click', (e) => {
+            //     console.log(e);
+            // })
+
             // 打开地图
             this.$input1.on('click',() => {
                 // qq.maps.Geolocation(this.mapinfo.key, this.mapinfo.app);
+                this.map.show();
+                const qqmap = document.getElementById(this.map.id).contentWindow.document.body;
+                console.log(qqmap.querySelector('.poiitem'));
+
+                qqmap.addEventListener('click', (e) => {
+                    console.log(e);
+                })
             })
 
             // 保存

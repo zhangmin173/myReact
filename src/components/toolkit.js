@@ -2,7 +2,7 @@
  * @Author: 张敏 
  * @Date: 2018-04-17 08:41:11 
  * @Last Modified by: Zhang Min
- * @Last Modified time: 2018-05-16 21:10:13
+ * @Last Modified time: 2018-05-17 08:46:20
  */
 
 /**
@@ -15,6 +15,31 @@ const Toolkit = (function () {
      * @param {ajax参数} options 
      */
     fetch(options) {
+      let _default = {
+        url: options.url,
+        type: options.type || 'post',
+        data: options.data || {},
+        success: (res) => {
+          // console.log(res);
+          options.success && options.success(res);
+        },
+        error: (err) => {
+          options.error && options.error(err);
+        },
+        complete: () => {
+          options.complete && options.complete();
+        }
+      };
+      if (window.location.href.indexOf('admin.nextdog.cc') > -1) {
+        _default.url = 'http://admin.nextdog.cc/Projects/WuYe/index.php/home' + _default.url
+      }
+      $.ajax(_default);
+    },
+    /**
+     * ajax请求
+     * @param {ajax参数} options 
+     */
+    ajax(options) {
       let _default = {
         url: options.url,
         type: options.type || 'post',
