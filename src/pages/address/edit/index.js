@@ -2,13 +2,14 @@
  * @Author: Zhang Min 
  * @Date: 2018-04-28 08:57:30 
  * @Last Modified by: Zhang Min
- * @Last Modified time: 2018-05-15 20:56:40
+ * @Last Modified time: 2018-05-19 14:41:08
  */
 
 import './index.less';
 import toolkit from '../../../components/toolkit';
 import pop from '../../../components/pop';
 import reg from '../../../components/reg';
+import Wechat from '../../../components/wehcat';
 
 $(function() {
     

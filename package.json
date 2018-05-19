@@ -44,6 +44,7 @@
     "html-loader": "^0.5.5",
     "html-webpack-include-assets-plugin": "^1.0.4",
     "html-webpack-plugin": "^3.0.7",
+    "iosselect": "^1.1.5",
     "less": "^3.0.1",
     "less-loader": "^4.1.0",
     "mockjs": "^1.0.1-beta3",

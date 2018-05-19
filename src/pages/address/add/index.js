@@ -2,7 +2,7 @@
  * @Author: Zhang Min 
  * @Date: 2018-04-28 08:57:30 
  * @Last Modified by: Zhang Min
- * @Last Modified time: 2018-05-19 14:06:51
+ * @Last Modified time: 2018-05-19 14:39:34
  */
 
 import './index.less';
@@ -10,6 +10,7 @@ import toolkit from '../../../components/toolkit';
 import pop from '../../../components/pop';
 import reg from '../../../components/reg';
 import Map from '../../../components/map/index';
+import Wechat from '../../../components/wehcat';
 
 $(function () {
 
@@ -31,13 +32,10 @@ $(function () {
             this.mapinfo = toolkit.getMapInfo();
         }
         init() {
-            wx.getLocation({
-                type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
-                success: res => {
-                    const lat = res.latitude; // 纬度，浮点数，范围为90 ~ -90
-                    const lng = res.longitude; // 经度，浮点数，范围为180 ~ -180。
-                    console.log(res);
-                    this.getProjectsNear(lat,lng,res => {
+            Wechat.config();
+            Wechat.ready(() => {
+                Wechat.getLocation(res => {
+                    this.getProjectsNear(res.lat,res.lng,res => {
                         const data = this.initProjectData(res.data);
                         this.map = new Map(null, {
                             data: data,
@@ -51,8 +49,8 @@ $(function () {
                             console.log(marker)
                         })
                     })
-                }
-            });
+                })
+            })
 
             this.events()
         }
