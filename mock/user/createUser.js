@@ -8,4 +8,12 @@ function mock() {
   }
   return data
 }
+// function mock() {
+//   let data = {
+//     success: false,
+//     data: 'http://m.baidu.com',
+//     msg: '请求成功'
+//   }
+//   return data
+// }
 module.exports = mock

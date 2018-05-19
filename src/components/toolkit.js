@@ -2,7 +2,7 @@
  * @Author: 张敏 
  * @Date: 2018-04-17 08:41:11 
  * @Last Modified by: Zhang Min
- * @Last Modified time: 2018-05-17 08:46:20
+ * @Last Modified time: 2018-05-19 20:58:08
  */
 
 /**
@@ -59,6 +59,27 @@ const Toolkit = (function () {
         _default.url = 'http://admin.nextdog.cc/Projects/WuYe/index.php/home' + _default.url
       }
       $.ajax(_default);
+    },
+    /**
+     * 用户登陆
+     */
+    userLogin() {
+      window._global = window._global || {};
+      if (!window._global.userinfo) {
+        $.ajax({
+          url: '/User/createUser',
+          data: {
+            visitUrl: window.location.href   
+          },
+          success: res => {
+            if (res.success) {
+              window._global.userinfo = res.data;
+            } else {
+              window.location.href = res.data;
+            }
+          }
+        })
+      }
     },
     /**
      * 获取url参数
