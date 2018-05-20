@@ -2,7 +2,7 @@
  * @Author: Zhang Min 
  * @Date: 2018-04-28 08:57:30 
  * @Last Modified by: Zhang Min
- * @Last Modified time: 2018-05-19 14:39:34
+ * @Last Modified time: 2018-05-20 10:54:40
  */
 
 import './index.less';
@@ -32,7 +32,7 @@ $(function () {
             this.mapinfo = toolkit.getMapInfo();
         }
         init() {
-            Wechat.config();
+            Wechat.config(true);
             Wechat.ready(() => {
                 Wechat.getLocation(res => {
                     this.getProjectsNear(res.lat,res.lng,res => {

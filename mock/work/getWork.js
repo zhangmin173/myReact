@@ -15,6 +15,7 @@ function mock() {
       work_address_x: '',
       work_address_y: '',
       work_voice: '',
+      voice_time: 30,
       work_status: 1,
       work_worker_id: 1,
       work_worker_name: '接单人',

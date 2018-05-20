@@ -2,7 +2,7 @@
  * @Author: 张敏 
  * @Date: 2018-04-17 08:41:11 
  * @Last Modified by: Zhang Min
- * @Last Modified time: 2018-05-19 14:40:02
+ * @Last Modified time: 2018-05-20 10:54:27
  */
 
 /**
@@ -15,9 +15,9 @@ const Wechat = (function () {
          * 微信接口注册
          * @param {微信接口注册的参数} data 
          */
-        config() {
+        config(debug = false) {
             Toolkit.fetch({
-                url: '/Wechat/sdk',
+                url: '/Weixin/getWxsdk',
                 data: {
                     visitUrl: window.location.href
                 },
@@ -25,7 +25,7 @@ const Wechat = (function () {
                     if (res.success) {
                         const data = res.data;
                         wx.config({
-                            debug: true,
+                            debug: debug,
                             appId: data.appId, // 必填，公众号的唯一标识
                             timestamp: data.timestamp, // 必填，生成签名的时间戳
                             nonceStr: data.nonceStr, // 必填，生成签名的随机串

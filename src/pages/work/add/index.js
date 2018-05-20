@@ -2,27 +2,24 @@
  * @Author: Zhang Min 
  * @Date: 2018-04-28 08:57:30 
  * @Last Modified by: Zhang Min
- * @Last Modified time: 2018-05-12 12:14:07
+ * @Last Modified time: 2018-05-20 11:12:22
  */
 
 import './index.less';
-import moonpng  from '../../../common/images/moon.png';
+import moonpng from '../../../common/images/moon.png';
 
 import Pop from '../../../components/pop';
 import Toolkit from '../../../components/toolkit';
 import BetterPicker from 'better-picker';
 import BenUploadUtils from '../../../components/upload/index';
 import Formatdate from '../../../components/formatDate';
+import Wechat from '../../../components/wehcat';
 
-$(function() {
+$(function () {
 
     class Index {
         constructor() {
             this.userinfo = null;
-
-            this.$select1 = $('#select1');
-            this.$select2 = $('#select2');
-            this.$select3 = $('#select3');
 
             this.type1 = 0;
             this.type2 = 0;
@@ -31,25 +28,31 @@ $(function() {
         init() {
             // 夜晚模式
             if (this.isNight()) {
-                $('#night .moon').css('background-image',`url('${moonpng}')`);
+                $('#night .moon').css('background-image', `url('${moonpng}')`);
                 $('#night').show();
-                return false;
             } else {
+                Wechat.config();
                 $('#app').show();
+                this.$select1 = $('#select1');
+                this.$select2 = $('#select2');
+                this.$select3 = $('#select3');
+                this.event();
             }
+        }
+        event() {
             // 初始化上传
             BenUploadUtils({
                 dom: "#uploadBtn",		// 需要挂在的DOM
                 url: "/Upload/image",				// 上传的服务器地址
                 limitSize: 10240000,    // 1024000kb
                 limitFormat: 'gif,jpg,jpeg,png,GIF,JPG,PNG', // 使用什么格式
-                limitSizeCallback: function(err){	// 限制大小的回调事件
+                limitSizeCallback: function (err) {	// 限制大小的回调事件
                     console.log(err);
                 },
-                limitFormatCallback: function(err){	// 限制格式的回调事件
+                limitFormatCallback: function (err) {	// 限制格式的回调事件
                     console.log(err);
                 },
-                onUploadBeforeCallback: function(res){	// 上传图片之前的回调事件
+                onUploadBeforeCallback: function (res) {	// 上传图片之前的回调事件
                     console.log(res);
                 },
                 onUploadSuccessCallback: (res) => {	// 上传成功的回调事件
@@ -64,16 +67,16 @@ $(function() {
                         }
                     }
                 },
-                onUploadFailCallback: function(res){ // 上传失败的回调事件
+                onUploadFailCallback: function (res) { // 上传失败的回调事件
                     console.log(res);
                 },
-                onUploadAlwaysCallback: function(res){	// 上传无论什么结果的回调事件
+                onUploadAlwaysCallback: function (res) {	// 上传无论什么结果的回调事件
                     console.log(res);
                 },
-                onRenderResizerBefore: function(res){	// 压缩之前的回调事件
+                onRenderResizerBefore: function (res) {	// 压缩之前的回调事件
                     //$("#preview").attr("src",res);
                 },
-                onRenderResizerAfter: function(res){	// 压缩之后的回调事件
+                onRenderResizerAfter: function (res) {	// 压缩之后的回调事件
                     //$("#nextview").attr("src",res);
                 }
             }).init();
@@ -81,17 +84,17 @@ $(function() {
             // 点击上传点图片删除
             $('.imgs-box').on('click', '.img', (e) => {
                 const index = e.target.dataset.index;
-                this.imgs.splice(index,1);
+                this.imgs.splice(index, 1);
                 $('.imgs-box').find('.img').eq(index).remove();
                 $('.upload').show();
             })
-            
+
             // 获取用户信息
             this.getUserInfo((data) => {
                 this.userinfo = data;
                 this.setUserInfo(this.userinfo);
-            },() => {
-                
+            }, () => {
+
             })
 
             // 获取报修类型
@@ -113,7 +116,7 @@ $(function() {
                     title: '请选择小类'
                 });
                 console.log(this.type2wheel);
-                
+
                 this.type1wheel.on('picker.select', (selectedVal, selectedIndex) => {
                     if (selectedVal[0] !== this.type1) {
                         this.type1 = selectedVal[0];
@@ -123,8 +126,8 @@ $(function() {
                             this.$select2.find('.select-name').text('请选择');
                         }
                         const type2 = this.getSecondType(this.type1);
-                        this.type2wheel.refillColumn(0,type2);
-                    }                    
+                        this.type2wheel.refillColumn(0, type2);
+                    }
                 })
 
                 this.type2wheel.on('picker.select', (selectedVal, selectedIndex) => {
@@ -134,11 +137,11 @@ $(function() {
             })
 
             // 选择大类
-            this.$select1.on('click',() => {
+            this.$select1.on('click', () => {
                 this.type1wheel.show();
             })
             // 选择小类
-            this.$select2.on('click',() => {
+            this.$select2.on('click', () => {
                 this.type2wheel.show();
             })
 
@@ -163,7 +166,7 @@ $(function() {
                 }
             })
             // 选择地址
-            this.$select3.on('click',() => {
+            this.$select3.on('click', () => {
                 this.addressPicker.show();
             })
 
@@ -171,19 +174,6 @@ $(function() {
             const $luyin = $('#luyin');
             const $yuyin = $('#yuyin');
             let isLuyin = false;
-            // $luyin.on({
-            //     touchstart: (e) => {
-            //         e.stopPropagation();
-            //         e.preventDefault();
-            //         $luyin.find('.label').text('请开始说话');
-            //     },
-            //     touchmove: () => {
-
-            //     },
-            //     touchend: () => {
-            //         $luyin.find('.label').text('请长按说话');
-            //     }
-            // });
             $luyin.on('click', () => {
                 if (isLuyin) {
                     // 正在录音 todo
@@ -198,6 +188,9 @@ $(function() {
                 } else {
                     // 开始录音 todo
                     isLuyin = true;
+                    Wechat.startRecord(res => {
+                        console.log(res);
+                    });
                     $luyin.find('.label').text('请开始说话');
                 }
             })
@@ -206,7 +199,6 @@ $(function() {
                 $yuyin.hide();
                 $luyin.show();
             })
-
             // 提交
             $('#submitBtn').on('click', () => {
                 if (!this.imgs.length) {
@@ -331,11 +323,11 @@ $(function() {
             })
         }
         setUserInfo(data) {
-            $('.headimg').css('background-image',`url('${data.user_img}')`);
+            $('.headimg').css('background-image', `url('${data.user_img}')`);
             $('.mobile').text(Toolkit.mobile2show(data.user_phone));
             $('.nickname').text(data.user_name);
         }
-        getUserInfo(success,error) {
+        getUserInfo(success, error) {
             Toolkit.fetch({
                 url: '/User/getUser',
                 type: 'get',
