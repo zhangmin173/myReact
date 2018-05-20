@@ -2,7 +2,7 @@
  * @Author: 张敏 
  * @Date: 2018-04-17 08:41:11 
  * @Last Modified by: Zhang Min
- * @Last Modified time: 2018-05-19 20:58:08
+ * @Last Modified time: 2018-05-20 22:09:03
  */
 
 /**
@@ -32,6 +32,9 @@ const Toolkit = (function () {
       };
       if (window.location.href.indexOf('admin.nextdog.cc') > -1) {
         _default.url = 'http://admin.nextdog.cc/Projects/WuYe/index.php/home' + _default.url
+      }
+      if (window._global && window._global.userinfo) {
+        _default.data.user_id = window._global.userinfo.user_id;
       }
       $.ajax(_default);
     },
@@ -63,17 +66,18 @@ const Toolkit = (function () {
     /**
      * 用户登陆
      */
-    userLogin() {
+    userLogin(cb) {
       window._global = window._global || {};
       if (!window._global.userinfo) {
-        $.ajax({
+        this.fetch({
           url: '/User/createUser',
           data: {
-            visitUrl: window.location.href   
+            visitUrl: window.location.href
           },
           success: res => {
             if (res.success) {
               window._global.userinfo = res.data;
+              cb && cb();
             } else {
               window.location.href = res.data;
             }
@@ -82,11 +86,33 @@ const Toolkit = (function () {
       }
     },
     /**
+     * 上传初始化
+     * @param {*} obj 
+     * @param {*} cb 
+     * @param {*} key 
+     * @param {*} type 
+     */
+    uploadInit(obj, cb, key, type) {
+      $("#" + obj).uploadifive({
+        formData: { relation_key: key, relation_type: type },
+        fileObjName: 'postedFile',
+        removeCompleted: true,
+        fileSizeLimit: '2048KB',
+        buttonClass: 'upload-components',
+        uploadScript: 'http://admin.nextdog.cc/Projects/weiLuoXuan/index.php/home/attachment/upload',
+        buttonText: '',
+        onUploadComplete: (file, res, response) => {
+          res = $.parseJSON(res);
+          cb && cb(res);
+        }
+      })
+    },
+    /**
      * 获取url参数
      * @param {参数名称} name 
      * @param {utl地址} path 
      */
-    getUrlParameter(name,path = window.location.href) {
+    getUrlParameter(name, path = window.location.href) {
       const result = decodeURIComponent((new RegExp('[?|&]' + name + '=([^&;]+?)(&|#|;|$)').exec(path) || [undefined, ''])[1].replace(/\+/g, '%20')) || null;
       return result ? result.split('/')[0] : '';
     },
@@ -102,7 +128,7 @@ const Toolkit = (function () {
      * @param {工单类型} type 
      */
     getWorkTypes(index) {
-      return ['to_send','to_deal','in_deal','to_delay','over'];
+      return ['to_send', 'to_deal', 'in_deal', 'to_delay', 'over'];
     },
     /**
      * 获取工单类型字段

@@ -2,7 +2,7 @@
  * @Author: Zhang Min 
  * @Date: 2018-04-28 08:57:30 
  * @Last Modified by: Zhang Min
- * @Last Modified time: 2018-05-20 11:12:22
+ * @Last Modified time: 2018-05-20 22:10:05
  */
 
 import './index.less';
@@ -12,6 +12,7 @@ import Pop from '../../../components/pop';
 import Toolkit from '../../../components/toolkit';
 import BetterPicker from 'better-picker';
 import BenUploadUtils from '../../../components/upload/index';
+// import '../../../components/uploadify/index';
 import Formatdate from '../../../components/formatDate';
 import Wechat from '../../../components/wehcat';
 
@@ -27,7 +28,7 @@ $(function () {
         }
         init() {
             // 夜晚模式
-            if (this.isNight()) {
+            if (!this.isNight()) {
                 $('#night .moon').css('background-image', `url('${moonpng}')`);
                 $('#night').show();
             } else {
@@ -36,50 +37,18 @@ $(function () {
                 this.$select1 = $('#select1');
                 this.$select2 = $('#select2');
                 this.$select3 = $('#select3');
-                this.event();
+                Toolkit.userLogin(() => {
+                    this.event();
+                })
             }
         }
         event() {
             // 初始化上传
-            BenUploadUtils({
-                dom: "#uploadBtn",		// 需要挂在的DOM
-                url: "/Upload/image",				// 上传的服务器地址
-                limitSize: 10240000,    // 1024000kb
-                limitFormat: 'gif,jpg,jpeg,png,GIF,JPG,PNG', // 使用什么格式
-                limitSizeCallback: function (err) {	// 限制大小的回调事件
-                    console.log(err);
-                },
-                limitFormatCallback: function (err) {	// 限制格式的回调事件
-                    console.log(err);
-                },
-                onUploadBeforeCallback: function (res) {	// 上传图片之前的回调事件
-                    console.log(res);
-                },
-                onUploadSuccessCallback: (res) => {	// 上传成功的回调事件
-                    res = JSON.parse(res);
-                    if (res.success) {
-                        const imgpath = res.data.url;
-                        this.imgs.push(imgpath);
-                        const index = this.imgs.length - 1;
-                        $('.imgs-box').append(`<div class="img" data-index=${index} data-url="${imgpath}" style="background-image:url('${imgpath}');"></div>`);
-                        if (this.imgs.length >= 3) {
-                            $('.upload').hide();
-                        }
-                    }
-                },
-                onUploadFailCallback: function (res) { // 上传失败的回调事件
-                    console.log(res);
-                },
-                onUploadAlwaysCallback: function (res) {	// 上传无论什么结果的回调事件
-                    console.log(res);
-                },
-                onRenderResizerBefore: function (res) {	// 压缩之前的回调事件
-                    //$("#preview").attr("src",res);
-                },
-                onRenderResizerAfter: function (res) {	// 压缩之后的回调事件
-                    //$("#nextview").attr("src",res);
+            Toolkit.uploadInit('uploadBtn', res => {
+                if (res.success) {
+                    this.uploadSuccess(res.data);
                 }
-            }).init();
+            }, 'property', 'work');
 
             // 点击上传点图片删除
             $('.imgs-box').on('click', '.img', (e) => {
@@ -236,6 +205,15 @@ $(function () {
                 })
             })
         }
+        uploadSuccess(data) {
+            const imgpath = data.url;
+            this.imgs.push(imgpath);
+            const index = this.imgs.length - 1;
+            $('.imgs-box').append(`<div class="img" data-index=${index} data-url="${imgpath}" style="background-image:url('${imgpath}');"></div>`);
+            if (this.imgs.length >= 3) {
+                $('.upload').hide();
+            }
+        }
         isNight() {
             const format = new Formatdate();
             const time = format.formatDate('hh');
@@ -288,7 +266,7 @@ $(function () {
         getFirstType() {
             let arr = [];
             this.types.forEach(item => {
-                if (item.type_level === 1) {
+                if (item.type_level === '1') {
                     const obj = {
                         text: item.type_name,
                         value: item.type_id
@@ -324,8 +302,13 @@ $(function () {
         }
         setUserInfo(data) {
             $('.headimg').css('background-image', `url('${data.user_img}')`);
-            $('.mobile').text(Toolkit.mobile2show(data.user_phone));
             $('.nickname').text(data.user_name);
+            if (data.mobile) {
+                $('.mobile').text(Toolkit.mobile2show(data.user_phone));
+            } else {
+                $('.mobile').hide();
+                $('.userinfo').show();
+            }
         }
         getUserInfo(success, error) {
             Toolkit.fetch({

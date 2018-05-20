@@ -2,7 +2,7 @@
  * @Author: Zhang Min 
  * @Date: 2018-04-28 08:57:30 
  * @Last Modified by: Zhang Min
- * @Last Modified time: 2018-05-19 20:52:16
+ * @Last Modified time: 2018-05-20 20:26:21
  */
 
 import './index.less';
@@ -13,14 +13,20 @@ $(function() {
     
     class index {
         constructor() {
-            toolkit.userLogin();
+            toolkit.userLogin(() => {
+                this.init();
+            });
         }
         init() {
 
             this.getuserinfo((data) => {
                 $('.headimg').css('backgroundImage',`url('${data.headimg}')`);
                 $('.nickname').text(data.nickname);
-                $('.mobile').text(toolkit.mobile2show(data.mobile));
+                if (data.mobile) {
+                    $('.mobile').text(toolkit.mobile2show(data.mobile));
+                } else {
+                    $('.mobile').text('手机号暂未绑定');
+                }
             })
         }
         getuserinfo(cb) {
@@ -37,5 +43,5 @@ $(function() {
         }
     }
 
-    new index().init()
+    new index();
 });

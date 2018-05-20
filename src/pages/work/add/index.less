@@ -1,4 +1,5 @@
 @import '../../../common/css/_var.less';
+@import '../../../common/css/_uploadify.less';
 
 @bgcolor: #f9f9f9;
 
@@ -20,6 +21,8 @@
     .headimg {
       .wd(150,150);
       border-radius: 50%;
+      background-repeat: no-repeat;
+      background-size: cover;
     }
 
     .nickname {
@@ -99,17 +102,17 @@
         }
       }
 
-      .upload {
-        position: relative;
+      // .upload {
+      //   position: relative;
 
-        input {
-          position: absolute;
-          left: 0;
-          top: 0;
-          .wd(158,158);
-          opacity: 0;
-        }
-      }
+      //   input {
+      //     position: absolute;
+      //     left: 0;
+      //     top: 0;
+      //     .wd(158,158);
+      //     opacity: 0;
+      //   }
+      // }
     }
     .one,.three,.four,.five {
       padding: 18/@rem;
