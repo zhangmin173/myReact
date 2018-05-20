@@ -2,7 +2,7 @@
  * @Author: Zhang Min 
  * @Date: 2018-04-28 08:57:30 
  * @Last Modified by: Zhang Min
- * @Last Modified time: 2018-05-20 22:10:05
+ * @Last Modified time: 2018-05-20 22:25:18
  */
 
 import './index.less';
@@ -206,7 +206,7 @@ $(function () {
             })
         }
         uploadSuccess(data) {
-            const imgpath = data.url;
+            const imgpath = data.attach_path;
             this.imgs.push(imgpath);
             const index = this.imgs.length - 1;
             $('.imgs-box').append(`<div class="img" data-index=${index} data-url="${imgpath}" style="background-image:url('${imgpath}');"></div>`);

@@ -2,7 +2,7 @@
  * @Author: 张敏 
  * @Date: 2018-04-17 08:41:11 
  * @Last Modified by: Zhang Min
- * @Last Modified time: 2018-05-20 22:09:03
+ * @Last Modified time: 2018-05-20 22:28:53
  */
 
 /**
@@ -103,6 +103,10 @@ const Toolkit = (function () {
         buttonText: '',
         onUploadComplete: (file, res, response) => {
           res = $.parseJSON(res);
+          res.data = res.rows;
+          if (res.success) {
+            res.data.attach_path = 'http://admin.nextdog.cc' + res.data.attach_path;
+          }
           cb && cb(res);
         }
       })
