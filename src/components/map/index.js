@@ -2,7 +2,7 @@
  * @Author: Zhang Min 
  * @Date: 2018-05-16 21:34:41 
  * @Last Modified by: Zhang Min
- * @Last Modified time: 2018-05-18 08:54:58
+ * @Last Modified time: 2018-05-21 09:08:11
  */
 
 import './index.less';
@@ -49,8 +49,8 @@ class Map extends EventEmitter {
     show() {
         $('#' + this.id).show();
     }
-    remove() {
-        $('#' + this.id).remove();
+    hide() {
+        $('#' + this.id).hide();
     }
 }
 export default Map;

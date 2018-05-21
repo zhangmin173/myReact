@@ -6,7 +6,7 @@
 #app {
   position: relative;
   box-sizing: border-box;
-  padding: 0 @g;
+  padding: 0 @g 30/@rem;
   height: 100%;
   background-color: #fff;
   display: none;
@@ -101,18 +101,6 @@
           margin-top: 47/@rem;
         }
       }
-
-      // .upload {
-      //   position: relative;
-
-      //   input {
-      //     position: absolute;
-      //     left: 0;
-      //     top: 0;
-      //     .wd(158,158);
-      //     opacity: 0;
-      //   }
-      // }
     }
     .one,.three,.four,.five {
       padding: 18/@rem;
@@ -260,6 +248,34 @@
     .wd(214,269);
     background-size: cover;
     background-repeat: no-repeat;
+  }
+}
+
+#address {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  display: none;
+  transition: all 1s;
+  margin-top: @g;
+  padding: 0 @g;
+  background-color: #fff;
+
+  .input-right {
+    cursor: pointer;
+
+    &.hide {
+      display: none;
+    }
+  }
+
+  .btn-save-addr {
+    display: block;
+    width: 600/@rem;
+    margin: @g auto;
   }
 }
 
