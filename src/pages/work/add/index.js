@@ -2,7 +2,7 @@
  * @Author: Zhang Min 
  * @Date: 2018-04-28 08:57:30 
  * @Last Modified by: Zhang Min
- * @Last Modified time: 2018-05-21 09:15:36
+ * @Last Modified time: 2018-05-24 21:05:41
  */
 
 import './index.less';
@@ -30,12 +30,12 @@ $(function () {
                 address_txt_2: '',
                 address_x: '',
                 address_y: '',
-                address_user_id: '',
                 address_user_name: '',
                 address_phone: ''
             };
             this.mapinfo = Toolkit.getMapInfo();
-            this.debug = window.location.hostname === 'localhost' ? true : false;
+            // this.debug = window.location.hostname === 'localhost' ? true : false;
+            this.debug = true;
         }
         init() {
             // 夜晚模式
@@ -142,7 +142,7 @@ $(function () {
             })
             // 选择地址
             this.$select3.on('click', () => {
-                if (!this.addressData) {
+                if (this.addressData) {
                     this.addressPicker.show();
                 } else {
                     this.initAddressBox();
@@ -179,21 +179,14 @@ $(function () {
                 $luyin.show();
             })
             // 提交
+            const btnDisabled = false;
             $('#submitBtn').on('click', () => {
-                if (!this.imgs.length) {
-                    Pop.show('error', '请上传图片').hide(800);
-                    return false;
-                }
-                if (!this.type1 || !this.type2 || !this.addressDesc) {
-                    Pop.show('error', '请完成其他选项').hide(800);
-                    return false;
-                }
                 const data = {
-                    work_imgs: this.imgs,
-                    work_phone: this.userinfo.user_phone,
+                    work_imgs: JSON.stringify(this.imgs),
+                    work_phone: this.addressDesc.address_phone,
                     work_user_name: this.userinfo.user_name,
-                    work_type1: this.type1,
-                    work_type2: this.type2,
+                    work_type_1: this.type1,
+                    work_type_2: this.type2,
                     work_address: this.addressDesc.address_txt_1 + this.addressDesc.address_txt_2,
                     work_address_x: this.addressDesc.address_x,
                     work_address_y: this.addressDesc.address_y,
@@ -206,10 +199,10 @@ $(function () {
                     url: '/Work/createWork',
                     data: data,
                     success: (res) => {
-                        if (!res.success) {
-                            Pop.show(res.msg);
-                        } else {
+                        if (res.success) {
                             window.location.href = '../list/index.html';
+                        } else {
+                            Pop.show(res.msg);
                         }
                     }
                 })
@@ -277,6 +270,9 @@ $(function () {
                 this.formdata.address_txt_2 = this.$input2.find('input').val();
                 this.formdata.address_user_name = this.$input3.find('input').val();
                 this.formdata.address_phone = this.$input4.find('input').val();
+                this.formdata.address_x = this.selectProjectData.address_x;
+                this.formdata.address_y = this.selectProjectData.address_y;
+                this.formdata.project_id = this.selectProjectData.project_id;
                 if (!this.formdata.address_txt_1 || !this.formdata.address_txt_2 || !this.formdata.address_user_name || !this.formdata.address_phone) {
                     Pop.show('error', '所有选项均为必填').hide(800);
                     return false;
@@ -288,7 +284,7 @@ $(function () {
                 this.saveAddress(this.formdata, res => {
                     if (res.success) {
                         this.addressDesc = res.data;
-                        this.$select3.find('.select-name').text(this.addressDesc.address_txt_1 + this.addressDesc.address_txt_2);                        
+                        this.$select3.find('.select-name').text(this.formdata.address_txt_1 + this.formdata.address_txt_2);                        
                         $('#address').hide();
                     }
                 });
@@ -308,7 +304,7 @@ $(function () {
             let data = null;
             for (let index = 0; index < this.projectData.length; index++) {
                 const element = this.projectData[index];
-                if (element.project_id === id) {
+                if (element.project_id == id) {
                     data = element
                 }
             }
@@ -320,8 +316,8 @@ $(function () {
                 const item = array[index];
                 const element = {
                     id: item.project_id,
-                    lat: item.address_x,
-                    lng: item.address_y,
+                    lat: item.address_y,
+                    lng: item.address_x,
                     title: item.title,
                     addr: item.project_address
                 };
@@ -333,8 +329,8 @@ $(function () {
             Toolkit.fetch({
                 url: '/Project/getProjectsNear',
                 data: {
-                    address_x: lat,
-                    address_y: lng
+                    address_x: lng,
+                    address_y: lat
                 },
                 success: (res) => {
                     if (res.success) {
@@ -359,6 +355,7 @@ $(function () {
             })
         }
         isNight() {
+            return false;
             const format = new Formatdate();
             const time = format.formatDate('hh');
             let isNight = false;
@@ -392,7 +389,7 @@ $(function () {
         getAddressById(address_id) {
             let val = null;
             this.addressData.forEach(item => {
-                if (item.address_id === address_id) {
+                if (item.address_id == address_id) {
                     val = item;
                 }
             });
@@ -401,7 +398,7 @@ $(function () {
         getTypeById(type_id) {
             let val = null;
             this.types.forEach(item => {
-                if (item.type_id === type_id) {
+                if (item.type_id == type_id) {
                     val = item;
                 }
             });
@@ -410,7 +407,7 @@ $(function () {
         getFirstType() {
             let arr = [];
             this.types.forEach(item => {
-                if (item.type_level === '1') {
+                if (item.type_level == '1') {
                     const obj = {
                         text: item.type_name,
                         value: item.type_id
@@ -423,7 +420,7 @@ $(function () {
         getSecondType(type_id) {
             let arr = [];
             this.types.forEach(item => {
-                if (item.type_parent_id === type_id) {
+                if (item.type_parent_id == type_id) {
                     const obj = {
                         text: item.type_name,
                         value: item.type_id

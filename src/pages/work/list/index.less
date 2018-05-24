@@ -59,10 +59,15 @@
     .item {
       position: relative;
       margin: @g 0 @g/2;
+      vertical-align: middle;
 
       .icon {
         display: inline-block;
         margin-right: @g;
+
+        &.icon-address {
+          margin-bottom: -5/@rem;
+        }
       }
 
       .label {
@@ -125,7 +130,7 @@
 
       .icon-beizhu {
         position: absolute;
-        top: 0;
+        top: 4/@rem;
       }
 
       .beizhu {

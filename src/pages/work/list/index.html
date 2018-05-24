@@ -19,16 +19,16 @@
   <script id="tpl-work-1" type="text/html">
     {{each data as item i}}
     <li class="panel">
-      {{if item.work_imgs.length}}
+      {{if item.work_imgs && item.work_imgs.length}}
       <div class="imgs">
-        {{each item.work_imgs as img}}
-        <div class="img" style="background-image:url({{img}})" data-url="{{img}}"></div>
+        {{each item.work_imgs as imgitem}}
+        <div class="img" style="background-image:url({{imgitem.img_url}})" data-url="{{imgitem.img_url}}"></div>
         {{/each}}
       </div>
       {{/if}}
       <div class="item">
         <div class="label time">{{item.create_time}}</div>
-        <div class="type">{{item.work_type_1 + '-' + item.work_type_2}}</div>
+        <div class="type">{{item.work_type_1_name + '-' + item.work_type_2_name}}</div>
       </div>
       <div class="item">
         <div class="icon icon-address"></div>
@@ -44,10 +44,10 @@
         </div>
       </div>
       {{/if}}
-      {{if item.work_worker_note}}
+      {{if item.work_user_note}}
       <div class="item">
         <div class="icon icon-beizhu"></div>
-        <div class="label beizhu">{{item.work_worker_note}}</div>
+        <div class="label beizhu">{{item.work_user_note}}</div>
       </div>
       {{/if}}
       {{if item.work_status !== 'to_send'}}
@@ -60,14 +60,24 @@
           <div class="label">手机号</div>
           <div class="name">{{item.work_worker_phone}}</div>
         </div>
+        {{if item.work_delay_time}}
+        <div class="time">
+          <div class="label">预计完成时间</div>
+          <div class="name">{{item.work_delay_time}}</div>
+        </div>
+        {{/if}}
+        {{if item.work_over_time}}
         <div class="time">
           <div class="label">完成时间</div>
           <div class="name">{{item.work_over_time}}</div>
         </div>
+        {{/if}}
+        {{if item.work_worker_note}}
         <div class="beizhu">
           <div class="label">处理备注</div>
           <div class="name">{{item.work_worker_note}}</div>
         </div>
+        {{/if}}
         </div>
       </div>
       {{/if}}

@@ -2,7 +2,7 @@
  * @Author: Zhang Min 
  * @Date: 2018-04-28 08:57:30 
  * @Last Modified by: Zhang Min
- * @Last Modified time: 2018-05-15 07:55:58
+ * @Last Modified time: 2018-05-24 21:01:04
  */
 
 import './index.less';
@@ -42,14 +42,14 @@ $(function () {
                         title: '已完成',
                         url: '/Work/getWorks',
                         querys: {
-                            work_status: this.workTypes[3]
+                            work_status: this.workTypes[4]
                         }
                     },
                     {
                         title: '延期转单',
                         url: '/Work/getWorks',
                         querys: {
-                            work_status: this.workTypes[4]
+                            work_status: this.workTypes[3]
                         }
                     }
                 ]
@@ -61,8 +61,11 @@ $(function () {
                 const html = Template('tpl-work-1', res);
                 tabContent.find('ul').append(html);
             })
-            this.tabs.init();
-            this.events();
+
+            Toolkit.userLogin(() => {
+                this.tabs.init();
+                this.events();
+            });
         }
         events() {
             // todo
