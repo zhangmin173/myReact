@@ -260,7 +260,6 @@
   box-sizing: border-box;
   display: none;
   transition: all 1s;
-  margin-top: @g;
   padding: 0 @g;
   background-color: #fff;
   z-index: 9999;
@@ -273,10 +272,14 @@
     }
   }
 
-  .btn-save-addr {
-    display: block;
-    width: 600/@rem;
+  .btn-group {
     margin: @g auto;
+    text-align: center;
+
+    .btn {
+      display: inline-block;
+      width: 280/@rem;
+    }
   }
 }
 

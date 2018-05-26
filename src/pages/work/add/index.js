@@ -2,7 +2,7 @@
  * @Author: Zhang Min 
  * @Date: 2018-04-28 08:57:30 
  * @Last Modified by: Zhang Min
- * @Last Modified time: 2018-05-26 11:15:51
+ * @Last Modified time: 2018-05-26 17:27:12
  */
 
 import './index.less';
@@ -31,11 +31,12 @@ $(function () {
                 address_x: '',
                 address_y: '',
                 address_user_name: '',
-                address_phone: ''
+                address_phone: '',
+                work_voice: '',
+                voice_time: 0,
             };
             this.mapinfo = Toolkit.getMapInfo();
-            // this.debug = window.location.hostname === 'localhost' ? true : false;
-            this.debug = true;
+            this.debug = window.location.hostname === 'localhost' ? true : false;
         }
         init() {
             // 夜晚模式
@@ -145,33 +146,41 @@ $(function () {
             })
 
             // 开始录音
-            const $luyin = $('#luyin');
-            const $yuyin = $('#yuyin');
-            let isLuyin = false;
-            $luyin.on('click', () => {
-                if (isLuyin) {
-                    // 正在录音 todo
-                    $luyin.find('.label').text('录音成功，正在上传...');
-                    setTimeout(() => {
-                        isLuyin = false;
-                        $luyin.hide();
-                        $luyin.find('.label').text('请点击说话');
-                        $yuyin.find('.time').text('60');
-                        $yuyin.show();
-                    }, 1000)
+            this.$luyin = $('#luyin');
+            this.$yuyin = $('#yuyin');
+            this.localId = null;
+            this.isLuyin = false;
+            let luyinTime = 0;
+            this.$luyin.on('click', () => {
+                if (this.isLuyin) {
+                    Wechat.stopRecord(localId => {
+                        window.clearInterval(this.luyinTimer);
+                        this.$luyin.find('.label').text('录音结束，正在上传...');
+                        this.localId = localId;
+                        Wechat.uploadVoice(this.localId, (serverId) => {
+                            this.uploadVoiceSuccess(serverId, luyinTime);
+                        })
+                    })
                 } else {
                     // 开始录音 todo
-                    isLuyin = true;
-                    Wechat.startRecord(res => {
-                        console.log(res);
-                    });
-                    $luyin.find('.label').text('请开始说话');
+                    this.isLuyin = true;
+                    this.$luyin.find('.label').text('请开始说话，再次点击结束');
+                    this.luyinTimer = window.setInterval(() => {
+                        luyinTime += 1;
+                    },1000);
+                    Wechat.startRecord((localId, time) => {
+                        window.clearInterval(this.luyinTimer);
+                        this.localId = localId;
+                        this.$luyin.find('.label').text('录音结束，正在上传...');
+                        Wechat.uploadVoice(this.localId, (serverId) => {
+                            this.uploadVoiceSuccess(serverId, luyinTime);
+                        })
+                    })
                 }
             })
             // 点击播放
-            $yuyin.on('click', () => {
-                $yuyin.hide();
-                $luyin.show();
+            this.$yuyin.on('click', () => {
+                Wechat.playVoice(this.localId)
             })
             // 提交
             const btnDisabled = false;
@@ -202,6 +211,20 @@ $(function () {
                     }
                 })
             })
+
+            // 取消地址选择
+            $('#cancel').on('click', () => {
+                $('#address').hide();
+            })
+        }
+        uploadVoiceSuccess(serverId, luyinTime) {
+            this.formdata.work_voice = serverId;
+            this.formdata.voice_time = luyinTime;
+            this.$luyin.find('.label').text('上传成功');
+            this.isLuyin = false;
+            this.$luyin.hide();
+            this.$yuyin.find('.time').text(luyinTime);
+            this.$yuyin.show();
         }
         uploadSuccess(data) {
             const imgpath = data.attach_path;

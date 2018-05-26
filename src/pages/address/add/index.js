@@ -2,7 +2,7 @@
  * @Author: Zhang Min 
  * @Date: 2018-04-28 08:57:30 
  * @Last Modified by: Zhang Min
- * @Last Modified time: 2018-05-26 11:08:23
+ * @Last Modified time: 2018-05-26 16:02:54
  */
 
 import './index.less';
@@ -30,7 +30,7 @@ $(function () {
                 address_phone: ''
             };
             this.mapinfo = Toolkit.getMapInfo();
-            this.debug = true;
+            this.debug = window.location.hostname === 'localhost' ? true : false;
         }
         init() {
             Wechat.config(true);
