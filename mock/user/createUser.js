@@ -2,18 +2,16 @@ function mock() {
   let data = {
     success: true,
     data: {
-      user_id: 1
+      openid: 'jfnjnwfkjwf43n2kj342',
+      user_id: '123456',
+      user_img: 'http://admin.nextdog.cc/Projects/FengDeQuan/view/images/logo.png',
+      user_phone: '17357213387',
+      user_name: '用户名称',
+      user_address_id: 1,
+      user_address_txt: '浙江省杭州市'
     },
     msg: '请求成功'
   }
   return data
 }
-// function mock() {
-//   let data = {
-//     success: false,
-//     data: 'http://m.baidu.com',
-//     msg: '请求成功'
-//   }
-//   return data
-// }
 module.exports = mock

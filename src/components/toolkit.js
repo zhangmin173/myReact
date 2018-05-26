@@ -2,7 +2,7 @@
  * @Author: 张敏 
  * @Date: 2018-04-17 08:41:11 
  * @Last Modified by: Zhang Min
- * @Last Modified time: 2018-05-20 22:28:53
+ * @Last Modified time: 2018-05-26 08:52:45
  */
 
 /**
@@ -77,12 +77,14 @@ const Toolkit = (function () {
           success: res => {
             if (res.success) {
               window._global.userinfo = res.data;
-              cb && cb();
+              cb && cb(res.data);
             } else {
               window.location.href = res.data;
             }
           }
         })
+      } else {
+        cb && cb(window._global.userinfo);
       }
     },
     /**
@@ -92,7 +94,7 @@ const Toolkit = (function () {
      * @param {*} key 
      * @param {*} type 
      */
-    uploadInit(obj, cb, key, type) {
+    uploadInit(obj, cb, key = 'property', type = 'source') {
       $("#" + obj).uploadifive({
         formData: { relation_key: key, relation_type: type },
         fileObjName: 'postedFile',

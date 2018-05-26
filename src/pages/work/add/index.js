@@ -2,7 +2,7 @@
  * @Author: Zhang Min 
  * @Date: 2018-04-28 08:57:30 
  * @Last Modified by: Zhang Min
- * @Last Modified time: 2018-05-24 21:05:41
+ * @Last Modified time: 2018-05-26 11:15:51
  */
 
 import './index.less';
@@ -48,19 +48,14 @@ $(function () {
                 this.$select1 = $('#select1');
                 this.$select2 = $('#select2');
                 this.$select3 = $('#select3');
-                Toolkit.userLogin(() => {
+                Toolkit.userLogin((data) => {
+                    this.userinfo = data;
+                    this.setUserInfo(this.userinfo);
                     this.event();
                 })
             }
         }
         event() {
-            // 获取用户信息
-            this.getUserInfo((data) => {
-                this.userinfo = data;
-                this.setUserInfo(this.userinfo);
-            }, () => {
-
-            })
             // 初始化上传
             Toolkit.uploadInit('uploadBtn', res => {
                 if (res.success) {
@@ -194,7 +189,7 @@ $(function () {
                     work_voice: '',
                     work_user_note: $('#beizhu').val()
                 }
-                console.log(data);                
+                console.log(data);
                 Toolkit.fetch({
                     url: '/Work/createWork',
                     data: data,
@@ -284,7 +279,7 @@ $(function () {
                 this.saveAddress(this.formdata, res => {
                     if (res.success) {
                         this.addressDesc = res.data;
-                        this.$select3.find('.select-name').text(this.formdata.address_txt_1 + this.formdata.address_txt_2);                        
+                        this.$select3.find('.select-name').text(this.formdata.address_txt_1 + this.formdata.address_txt_2);
                         $('#address').hide();
                     }
                 });
@@ -450,19 +445,6 @@ $(function () {
                 $('.mobile').hide();
                 $('.userinfo').show();
             }
-        }
-        getUserInfo(success, error) {
-            Toolkit.fetch({
-                url: '/User/getUser',
-                type: 'get',
-                success: res => {
-                    if (res.success) {
-                        success && success(res.data)
-                    } else {
-                        error && error()
-                    }
-                }
-            })
         }
     }
 

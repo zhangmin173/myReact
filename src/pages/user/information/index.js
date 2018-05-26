@@ -2,13 +2,13 @@
  * @Author: Zhang Min 
  * @Date: 2018-04-28 08:57:30 
  * @Last Modified by: Zhang Min
- * @Last Modified time: 2018-05-15 21:09:49
+ * @Last Modified time: 2018-05-26 08:57:45
  */
 
 import './index.less';
-import toolkit from '../../../components/toolkit';
-import pop from '../../../components/pop';
-import reg from '../../../components/reg';
+import Toolkit from '../../../components/toolkit';
+import Pop from '../../../components/pop';
+import Reg from '../../../components/reg';
 
 $(function() {
     
@@ -21,9 +21,13 @@ $(function() {
             this.formdata = {};
         }
         init() {
+            Toolkit.userLogin(data => {
+                this.$input1.find('input').val(data.user_name);
+                this.$input2.find('input').val(data.user_phone);
+                this.$apptitle.text(this.getAppTitle());
+                this.events()
+            })
             
-            this.$apptitle.text(this.getAppTitle());
-            this.events()
         }
         events() {
 
@@ -32,18 +36,6 @@ $(function() {
                 this.formdata.user_name = this.$input1.find('input').val();
                 this.formdata.user_phone = this.$input2.find('input').val();
                 console.log(this.formdata);
-                // if (!this.formdata.user_name) {
-                //     pop.show('error','姓名不能为空').hide(800);
-                //     return false;
-                // }
-                // if (this.formdata.user_phone) {
-                //     pop.show('error','手机号不能为空').hide(800);
-                //     return false;
-                // }
-                // if (!reg.isMobile(this.formdata.user_phone)) {
-                //     pop.show('error','请填写正确的手机号').hide(800);
-                //     return false;
-                // }
                 this.saveInformation(this.formdata);
             })
 
@@ -51,11 +43,8 @@ $(function() {
         }
         getAppTitle() {
             let apptitle = '';
-            const action = toolkit.getUrlParameter('action');
+            const action = Toolkit.getUrlParameter('action');
             switch(action) {
-                case 'headimg':
-                    apptitle = '修改头像';
-                    break;
                 case 'nickname':
                     apptitle = '修改昵称';
                     this.$input1.show();
@@ -70,14 +59,14 @@ $(function() {
             return apptitle;
         }
         saveInformation(data) {
-            toolkit.fetch({
+            Toolkit.fetch({
                 url: '/User/updateUser',
                 data,
                 success: (res) => {
                     if (res.success) {
-                        pop.show('success',res.msg).hide();
+                        window.location.href = '../center/index.html';
                     } else {
-                        pop.show('error',res.msg).hide();
+                        Pop.show('error',res.msg).hide();
                     }
                 }
             })
