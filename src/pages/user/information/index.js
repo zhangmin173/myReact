@@ -2,7 +2,7 @@
  * @Author: Zhang Min 
  * @Date: 2018-04-28 08:57:30 
  * @Last Modified by: Zhang Min
- * @Last Modified time: 2018-05-26 08:57:45
+ * @Last Modified time: 2018-05-27 20:09:53
  */
 
 import './index.less';
@@ -19,6 +19,7 @@ $(function() {
             this.$input2 = $('#input-2');
             this.$tip = $('.tip');
             this.formdata = {};
+            this.ajaxing = false;
         }
         init() {
             Toolkit.userLogin(data => {
@@ -33,6 +34,10 @@ $(function() {
 
             // 保存
             $('#btn').on('click',() => {
+                if (this.ajaxing) {
+                    return false;
+                }
+                this.ajaxing = true;
                 this.formdata.user_name = this.$input1.find('input').val();
                 this.formdata.user_phone = this.$input2.find('input').val();
                 console.log(this.formdata);
@@ -68,6 +73,9 @@ $(function() {
                     } else {
                         Pop.show('error',res.msg).hide();
                     }
+                },
+                complete: () => {
+                    this.ajaxing = false;
                 }
             })
         }

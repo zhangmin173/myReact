@@ -2,7 +2,7 @@
  * @Author: Zhang Min 
  * @Date: 2018-04-28 08:57:30 
  * @Last Modified by: Zhang Min
- * @Last Modified time: 2018-05-27 19:57:17
+ * @Last Modified time: 2018-05-27 20:11:55
  */
 
 import './index.less';
@@ -220,6 +220,9 @@ $(function () {
                         } else {
                             Pop.show(res.msg).hide();
                         }
+                    },
+                    complete: () => {
+                        btnDisabled = false;
                     }
                 })
             })
@@ -299,7 +302,12 @@ $(function () {
             })
 
             // 保存
+            let btnSaveAddrDisabled = false;
             $('#btn-save-addr').on('click', () => {
+                if (btnSaveAddrDisabled) {
+                    return false;
+                }
+                btnSaveAddrDisabled = true;
                 this.formdata.address_txt_1 = this.$input1.find('input').val();
                 this.formdata.address_txt_2 = this.$input2.find('input').val();
                 this.formdata.address_user_name = this.$input3.find('input').val();
@@ -307,21 +315,13 @@ $(function () {
                 this.formdata.address_x = this.selectProjectData.address_x;
                 this.formdata.address_y = this.selectProjectData.address_y;
                 this.formdata.project_id = this.selectProjectData.project_id;
-                if (!this.formdata.address_txt_1 || !this.formdata.address_txt_2 || !this.formdata.address_user_name || !this.formdata.address_phone) {
-                    Pop.show('error', '所有选项均为必填').hide(800);
-                    return false;
-                }
-                if (!reg.isMobile(this.formdata.address_phone)) {
-                    Pop.show('error', '请填写正确的手机号').hide(800);
-                    return false;
-                }
                 this.saveAddress(this.formdata, res => {
                     if (res.success) {
                         this.addressDesc = res.data;
                         this.$select3.find('.select-name').text(this.formdata.address_txt_1 + this.formdata.address_txt_2);
                         $('#address').hide();
                     }
-                });
+                }, btnSaveAddrDisabled);
             })
         }
         markerClickSuccess(marker) {
@@ -375,7 +375,7 @@ $(function () {
                 }
             })
         }
-        saveAddress(data, cb) {
+        saveAddress(data, cb, btnSaveAddrDisabled) {
             Toolkit.fetch({
                 url: '/Address/createAddress',
                 data,
@@ -385,6 +385,9 @@ $(function () {
                     } else {
                         Pop.show('error', res.msg).hide();
                     }
+                },
+                complete: () => {
+                    btnSaveAddrDisabled = false;
                 }
             })
         }
