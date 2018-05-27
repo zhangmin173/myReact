@@ -2,7 +2,7 @@
  * @Author: Zhang Min 
  * @Date: 2018-04-28 08:57:30 
  * @Last Modified by: Zhang Min
- * @Last Modified time: 2018-05-26 17:27:12
+ * @Last Modified time: 2018-05-27 19:57:17
  */
 
 import './index.less';
@@ -26,6 +26,14 @@ $(function () {
             this.type2 = 0;
             this.imgs = [];
             this.formdata = {
+                address_txt_1: '',
+                address_txt_2: '',
+                address_x: '',
+                address_y: '',
+                address_user_name: '',
+                address_phone: ''
+            };
+            this.workData = {
                 address_txt_1: '',
                 address_txt_2: '',
                 address_x: '',
@@ -183,30 +191,34 @@ $(function () {
                 Wechat.playVoice(this.localId)
             })
             // 提交
-            const btnDisabled = false;
-            $('#submitBtn').on('click', () => {
-                const data = {
-                    work_imgs: JSON.stringify(this.imgs),
-                    work_phone: this.addressDesc.address_phone,
-                    work_user_name: this.userinfo.user_name,
-                    work_type_1: this.type1,
-                    work_type_2: this.type2,
-                    work_address: this.addressDesc.address_txt_1 + this.addressDesc.address_txt_2,
-                    work_address_x: this.addressDesc.address_x,
-                    work_address_y: this.addressDesc.address_y,
-                    project_id: this.addressDesc.project_id,
-                    work_voice: '',
-                    work_user_note: $('#beizhu').val()
+            let btnDisabled = false;
+            const submitBtn = $('#submitBtn');
+            submitBtn.on('click', () => {
+                if (btnDisabled || !this.addressDesc) {
+                    return false;
                 }
-                console.log(data);
+                submitBtn.text('提交中...');
+                btnDisabled = true;
+                this.workData.work_imgs = JSON.stringify(this.imgs);
+                this.workData.work_type_1 = this.type1;
+                this.workData.work_type_2 = this.type2;
+                this.workData.work_phone = this.addressDesc.address_phone;
+                this.workData.work_user_name = this.userinfo.user_name;
+                this.workData.work_address = this.addressDesc.address_txt_1 + this.addressDesc.address_txt_2;
+                this.workData.work_address_x = this.addressDesc.address_x;
+                this.workData.work_address_y = this.addressDesc.address_y;
+                this.workData.project_id = this.addressDesc.project_id;
+                this.workData.work_user_note = $('#beizhu').val();
+                console.log(this.workData);
                 Toolkit.fetch({
                     url: '/Work/createWork',
-                    data: data,
+                    data: this.workData,
                     success: (res) => {
                         if (res.success) {
+                            submitBtn.text('提交');
                             window.location.href = '../list/index.html';
                         } else {
-                            Pop.show(res.msg);
+                            Pop.show(res.msg).hide();
                         }
                     }
                 })
@@ -218,12 +230,16 @@ $(function () {
             })
         }
         uploadVoiceSuccess(serverId, luyinTime) {
-            this.formdata.work_voice = serverId;
-            this.formdata.voice_time = luyinTime;
+            this.workData.work_voice = serverId;
+            this.workData.voice_time = luyinTime;
             this.$luyin.find('.label').text('上传成功');
             this.isLuyin = false;
             this.$luyin.hide();
             this.$yuyin.find('.time').text(luyinTime);
+            if (luyinTime < 30) {
+                luyinTime = 30;
+            }
+            this.$yuyin.css('width', luyinTime + '%');
             this.$yuyin.show();
         }
         uploadSuccess(data) {
