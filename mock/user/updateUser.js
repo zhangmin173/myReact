@@ -2,7 +2,7 @@ function mock() {
   let data = {
     success: true,
     data: {
-      user_img: 'http://admin.nextdog.cc/Projects/FengDeQuan/view/images/logo.png'
+      user_img: 'http://admin.nextdog.cc/Projects/WuYe/dist/assets/default-headimg.png'
     },
     msg: '请求成功'
   }
