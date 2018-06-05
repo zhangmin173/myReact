@@ -20,25 +20,26 @@
       <div class="head-list">
       {{each data1 as item}}
       <div class="msg-item">
-        <div class="time">{{create_time}}</div>
-        <div class="headimg" style="background-image:url('{{writer_img}}');"></div>
-        <div class="message">{{message_txt}}</div>
-      </div>
-      {{/each}}
-      </div>
-      <textarea id="replay-txt" rows="6" placeholder="请输入回复"></textarea>
-      <button class="btn btn-default">提交</button>
-    </div>
-    <div class="title">历史消息</div>
-    <ul class="msg-list">
-      {{each data2 as item}}
-      <li>
         <div class="time">{{item.create_time}}</div>
         <div class="headimg" style="background-image:url('{{item.writer_img}}');"></div>
         <div class="message">{{item.message_txt}}</div>
-      </li>
+      </div>
       {{/each}}
-    </ul>
+      </div>
+      <textarea id="replayTxt" rows="6" placeholder="请输入回复"></textarea>
+      <button id="btn" class="btn btn-default">提 交</button>
+    </div>
+    <div class="title">历史消息</div>
+    <div class="msg-list">
+      {{each data2 as item}}
+      <div class="msg-item">
+        <div class="username">{{item.writer_name}}：</div>
+        <div class="time">{{item.create_time}}</div>
+        <div class="headimg" style="background-image:url('{{item.writer_img}}');"></div>
+        <div class="message">{{item.message_txt}}</div>
+      </div>
+      {{/each}}
+    </div>
   </script>
   <script type="text/javascript" src="<%= htmlWebpackPlugin.files.js[1] %>"></script>
 </body>
