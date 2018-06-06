@@ -2,7 +2,7 @@
  * @Author: Zhang Min 
  * @Date: 2018-05-03 07:50:42 
  * @Last Modified by: Zhang Min
- * @Last Modified time: 2018-05-16 08:52:25
+ * @Last Modified time: 2018-06-05 23:22:12
  */
 
 /**
@@ -123,7 +123,7 @@ class Listview {
         })
     }
     _getQuerys() {
-        return Object.assign({ page_number: this.pageIndex, page_limit: this.pageSize }, this.querys);
+        return Object.assign({ page_number: this.pageIndex, page_limit: this.pageSize, pageNumber: this.pageIndex, pageLimit: this.pageSize }, this.querys);
     }
     //移动容器
     _translate(diff) {

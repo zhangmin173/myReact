@@ -20,12 +20,12 @@
     {{each data as item i}}
     <li class="panel">
       <div class="item user">
-        <div class="headimg"></div>
+        <div class="headimg" style="background-image:url('{{item.user_img}}')"></div>
         <div class="name">{{item.work_user_name}}</div>
         <div class="time">{{item.create_time}}</div>
       </div>
       <div class="item type">
-        <div class="type-label">{{item.work_type_1 + '-' + item.work_type_2}}</div>
+        <div class="type-label">{{item.work_type_1_name + '-' + item.work_type_2_name}}</div>
       </div>
       <div class="item">
         <div class="icon icon-address"></div>
@@ -47,10 +47,10 @@
         <div class="label beizhu">{{item.work_worker_note}}</div>
       </div>
       {{/if}}
-      {{if item.work_imgs.length}}
+      {{if item.work_imgs && item.work_imgs.length}}
       <div class="imgs">
-        {{each item.work_imgs as img}}
-        <div class="img" style="background-image:url({{img}})" data-url="{{img}}"></div>
+        {{each item.work_imgs as imgitem}}
+        <div class="img" style="background-image:url({{imgitem.img_url}})" data-url="{{imgitem.img_url}}"></div>
         {{/each}}
       </div>
       {{/if}}
@@ -64,14 +64,24 @@
           <div class="label">手机号</div>
           <div class="name">{{item.work_worker_phone}}</div>
         </div>
+        {{if item.work_delay_time}}
+        <div class="time">
+          <div class="label">预计完成时间</div>
+          <div class="name">{{item.work_delay_time}}</div>
+        </div>
+        {{/if}}
+        {{if item.work_over_time}}
         <div class="time">
           <div class="label">完成时间</div>
           <div class="name">{{item.work_over_time}}</div>
         </div>
+        {{/if}}
+        {{if item.work_worker_note}}
         <div class="beizhu">
           <div class="label">处理备注</div>
           <div class="name">{{item.work_worker_note}}</div>
         </div>
+        {{/if}}
         </div>
       </div>
       {{/if}}

@@ -2,7 +2,7 @@
  * @Author: Zhang Min 
  * @Date: 2018-04-28 08:57:30 
  * @Last Modified by: Zhang Min
- * @Last Modified time: 2018-05-19 16:18:47
+ * @Last Modified time: 2018-06-06 22:40:41
  */
 
 import './index.less';
@@ -16,6 +16,11 @@ import DatePicker from '../../../../components/datePicker/index';
 $(function () {
     class Index {
         constructor() {
+            Toolkit.adminLogin(data => {
+                this.init()
+            });
+        }
+        init() {
             this.workTypes = Toolkit.getWorkTypes();
             this.tabs = new Tabsview({
                 timeout: 300,
@@ -58,8 +63,6 @@ $(function () {
                 ]
             });
 
-        }
-        init() {
             this.tabs.on('success', (res, tabIndex, tabContent, that) => {
                 const html = Template('tpl-work-1', res);
                 tabContent.find('ul').append(html);
@@ -108,9 +111,10 @@ $(function () {
                 url: '/Work/updateWork',
                 data: {
                     work_id: this.work_id,
-                    work_worker_id: worker.work_id,
+                    work_worker_id: worker.worker_id,
                     work_worker_name: worker.worker_name,
-                    work_worker_phone: worker.worker_phone
+                    work_worker_phone: worker.worker_phone,
+                    work_status: this.workTypes[1]
                 },
                 success: res => {
                     if (res.success) {
@@ -143,5 +147,5 @@ $(function () {
         }
     }
 
-    new Index().init()
+    new Index()
 });

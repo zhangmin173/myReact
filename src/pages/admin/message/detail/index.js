@@ -2,13 +2,13 @@
  * @Author: Zhang Min 
  * @Date: 2018-04-28 08:57:30 
  * @Last Modified by: Zhang Min
- * @Last Modified time: 2018-06-06 23:11:51
+ * @Last Modified time: 2018-06-06 23:33:03
  */
 
 import './index.less';
-import Pop from '../../../components/pop';
-import Toolkit from '../../../components/toolkit';
-import Template from '../../../../libs/lib-artTemplate/index';
+import Pop from '../../../../components/pop';
+import Toolkit from '../../../../components/toolkit';
+import Template from '../../../../../libs/lib-artTemplate/index';
 
 $(function() {
     class Index {
@@ -23,9 +23,9 @@ $(function() {
                 dialogue_id: this.id
             };
             
-            Toolkit.userLogin(data => {
-                this.postData.writer_name = data.user_name;
-                this.postData.writer_img = data.user_img;
+            Toolkit.adminLogin(data => {
+                this.postData.writer_name = data.admin_name;
+                this.postData.writer_img = data.admin_img;
                 this.init();
             })
             
@@ -68,7 +68,7 @@ $(function() {
         }
         getMessage(cb) {
             Toolkit.fetch({
-                url: '/Message/getMessagesByDialogue_User',
+                url: '/Message/getMessagesByDialogue_Admin',
                 data: {
                     dialogue_id: this.id
                 },
@@ -81,7 +81,7 @@ $(function() {
         }
         save(data) {
             Toolkit.fetch({
-                url: '/Message/createMessageByUser',
+                url: '/Message/createMessageByAdmin',
                 data,
                 success: (res) => {
                     if (res.success) {

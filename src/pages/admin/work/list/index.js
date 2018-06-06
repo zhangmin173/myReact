@@ -2,7 +2,7 @@
  * @Author: Zhang Min 
  * @Date: 2018-04-28 08:57:30 
  * @Last Modified by: Zhang Min
- * @Last Modified time: 2018-05-17 09:02:19
+ * @Last Modified time: 2018-06-06 22:47:51
  */
 
 import './index.less';
@@ -15,6 +15,11 @@ import BetterPicker from 'better-picker';
 $(function () {
     class Index {
         constructor() {
+            Toolkit.adminLogin(data => {
+                this.init()
+            });
+        }
+        init() {
             this.workTypes = Toolkit.getWorkTypes();
             this.tabs = new Tabsview({
                 timeout: 300,
@@ -56,9 +61,6 @@ $(function () {
                     }
                 ]
             });
-
-        }
-        init() {
             this.tabs.on('success', (res, tabIndex, tabContent, that) => {
                 const html = Template('tpl-work-1', res);
                 tabContent.find('ul').append(html);
@@ -95,18 +97,18 @@ $(function () {
             if (!this.work_id) {
                 return false;
             }
-            Toolkit.ajax({
+            Toolkit.fetch({
                 url: '/Work/updateWork',
                 data: {
                     work_id: this.work_id,
-                    work_worker_id: worker.work_id,
+                    work_worker_id: worker.worker_id,
                     work_worker_name: worker.worker_name,
-                    work_worker_phone: worker.worker_phone
+                    work_worker_phone: worker.worker_phone,
+                    work_status: this.workTypes[1]
                 },
                 success: res => {
                     if (res.success) {
-                        this.work_id = 0;
-                        Pop.show('success', res.msg).hide();
+                        window.localStorage.reload();
                     }
                 }
             })
@@ -123,7 +125,7 @@ $(function () {
             return arr;
         }
         getWorkers(cb) {
-            Toolkit.ajax({
+            Toolkit.fetch({
                 url: '/Worker/getWorkers',
                 success: (res) => {
                     if (res.success) {
@@ -134,5 +136,5 @@ $(function () {
         }
     }
 
-    new Index().init()
+    new Index()
 });

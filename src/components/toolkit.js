@@ -2,7 +2,7 @@
  * @Author: 张敏 
  * @Date: 2018-04-17 08:41:11 
  * @Last Modified by: Zhang Min
- * @Last Modified time: 2018-05-26 08:52:45
+ * @Last Modified time: 2018-06-06 22:17:48
  */
 
 /**
@@ -36,30 +36,8 @@ const Toolkit = (function () {
       if (window._global && window._global.userinfo) {
         _default.data.user_id = window._global.userinfo.user_id;
       }
-      $.ajax(_default);
-    },
-    /**
-     * ajax请求
-     * @param {ajax参数} options 
-     */
-    ajax(options) {
-      let _default = {
-        url: options.url,
-        type: options.type || 'post',
-        data: options.data || {},
-        success: (res) => {
-          // console.log(res);
-          options.success && options.success(res);
-        },
-        error: (err) => {
-          options.error && options.error(err);
-        },
-        complete: () => {
-          options.complete && options.complete();
-        }
-      };
-      if (window.location.href.indexOf('admin.nextdog.cc') > -1) {
-        _default.url = 'http://admin.nextdog.cc/Projects/WuYe/index.php/home' + _default.url
+      if (window._global && window._global.admininfo) {
+        _default.data.admin_id = window._global.admininfo.admin_id;
       }
       $.ajax(_default);
     },
@@ -72,7 +50,7 @@ const Toolkit = (function () {
         this.fetch({
           url: '/User/createUser',
           data: {
-            visitUrl: window.location.href
+            visit_url: window.location.href
           },
           success: res => {
             if (res.success) {
@@ -85,6 +63,30 @@ const Toolkit = (function () {
         })
       } else {
         cb && cb(window._global.userinfo);
+      }
+    },
+    /**
+     * 用户登陆
+     */
+    adminLogin(cb) {
+      window._global = window._global || {};
+      if (!window._global.admininfo) {
+        this.fetch({
+          url: '/Admin/ifLogin',
+          data: {
+            visit_url: window.location.href
+          },
+          success: res => {
+            if (res.success) {
+              window._global.admininfo = res.data;
+              cb && cb(window._global.admininfo);
+            } else {
+              window.location.href = 'http://admin.nextdog.cc/Projects/WuYe/dist/admin/login/index.html';
+            }
+          }
+        })
+      } else {
+        cb && cb(window._global.admininfo);
       }
     },
     /**
