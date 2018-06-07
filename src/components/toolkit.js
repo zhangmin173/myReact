@@ -2,7 +2,7 @@
  * @Author: 张敏 
  * @Date: 2018-04-17 08:41:11 
  * @Last Modified by: Zhang Min
- * @Last Modified time: 2018-06-06 22:17:48
+ * @Last Modified time: 2018-06-07 22:10:18
  */
 
 /**
@@ -39,6 +39,9 @@ const Toolkit = (function () {
       if (window._global && window._global.admininfo) {
         _default.data.admin_id = window._global.admininfo.admin_id;
       }
+      if (window._global && window._global.workerinfo) {
+        _default.data.worker_id = window._global.workerinfo.worker_id;
+      }
       $.ajax(_default);
     },
     /**
@@ -66,7 +69,7 @@ const Toolkit = (function () {
       }
     },
     /**
-     * 用户登陆
+     * 主管登陆
      */
     adminLogin(cb) {
       window._global = window._global || {};
@@ -87,6 +90,30 @@ const Toolkit = (function () {
         })
       } else {
         cb && cb(window._global.admininfo);
+      }
+    },
+    /**
+     * 主管登陆
+     */
+    workerLogin(cb) {
+      window._global = window._global || {};
+      if (!window._global.workerinfo) {
+        this.fetch({
+          url: '/Worker/ifLogin',
+          data: {
+            visit_url: window.location.href
+          },
+          success: res => {
+            if (res.success) {
+              window._global.workerinfo = res.data;
+              cb && cb(window._global.workerinfo);
+            } else {
+              window.location.href = 'http://admin.nextdog.cc/Projects/WuYe/dist/worker/login/index.html';
+            }
+          }
+        })
+      } else {
+        cb && cb(window._global.workerinfo);
       }
     },
     /**
