@@ -2,7 +2,7 @@
  * @Author: Zhang Min 
  * @Date: 2018-04-28 08:57:30 
  * @Last Modified by: Zhang Min
- * @Last Modified time: 2018-06-08 19:18:59
+ * @Last Modified time: 2018-06-09 00:01:47
  */
 
 import './index.less';
@@ -93,10 +93,10 @@ $(function() {
                 })
             }
 
-            $('#address').show();
+            //$('#address').show();
             // 打开地图
             this.$input1.on('click', () => {
-                this.map.show();
+                this.map && this.map.show();
             })
 
             // 保存
@@ -120,7 +120,7 @@ $(function() {
                     if (res.success) {
                         this.addressDesc = res.data;
                         this.$select3.find('.select-name').text(this.formdata.address_txt_1 + this.formdata.address_txt_2);
-                        $('#address').hide();
+                        //$('#address').hide();
                     }
                 });
             })
@@ -177,11 +177,6 @@ $(function() {
         }
         events() {
 
-            // 打开地图
-            this.$input1.on('click',() => {
-
-            })
-
             // 保存
             $('#btn').on('click',() => {
                 // this.formdata.address_txt_1 = this.$input1.find('input').val();
@@ -194,7 +189,9 @@ $(function() {
 
             // 删除
             $('#del').on('click',() => {
-                this.delAddress(this.address_id);
+                if(window.confirm('确认要删除吗？')) {
+                    this.delAddress(this.address_id);
+                }
             })
         }
         renderdata(data) {
