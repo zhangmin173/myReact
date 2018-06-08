@@ -2,7 +2,7 @@
  * @Author: Zhang Min 
  * @Date: 2018-04-28 08:57:30 
  * @Last Modified by: Zhang Min
- * @Last Modified time: 2018-06-06 22:47:51
+ * @Last Modified time: 2018-06-08 08:19:09
  */
 
 import './index.less';
@@ -91,6 +91,19 @@ $(function () {
             $('.tabs-components').on('click', '.paijian', function() {
                 self.work_id = $(this).data('id');
                 self.workerwheel.show();
+            })
+            
+            const player = Toolkit.player();
+            $('body').on('click', '.yuyin', function() {
+                const link = $(this).data('voice');
+                if ($(this).data('play') === 'playing') {
+                    player.pause();
+                    $(this).data('play', 'puase');
+                } else {
+                    player.play(link);
+                    $(this).data('play', 'playing');
+                }
+                
             })
         }
         paijian(worker) {

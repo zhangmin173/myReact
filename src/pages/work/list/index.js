@@ -2,7 +2,7 @@
  * @Author: Zhang Min 
  * @Date: 2018-04-28 08:57:30 
  * @Last Modified by: Zhang Min
- * @Last Modified time: 2018-05-24 21:01:04
+ * @Last Modified time: 2018-06-08 08:20:58
  */
 
 import './index.less';
@@ -69,7 +69,18 @@ $(function () {
         }
         events() {
             // todo
-
+            const player = Toolkit.player();
+            $('body').on('click', '.yuyin', function() {
+                const link = $(this).data('voice');
+                if ($(this).data('play') === 'playing') {
+                    player.pause();
+                    $(this).data('play', 'puase');
+                } else {
+                    player.play(link);
+                    $(this).data('play', 'playing');
+                }
+                
+            })
         }
     }
 

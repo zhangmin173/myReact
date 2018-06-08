@@ -2,7 +2,7 @@
  * @Author: 张敏 
  * @Date: 2018-04-17 08:41:11 
  * @Last Modified by: Zhang Min
- * @Last Modified time: 2018-06-07 22:10:18
+ * @Last Modified time: 2018-06-08 08:19:48
  */
 
 /**
@@ -189,6 +189,21 @@ const Toolkit = (function () {
       return {
         key: 'YL2BZ-2MRLU-HG7VH-B46PY-DMJW3-55FCV',
         app: 'xiongwei'
+      };
+    },
+    player() {
+      if (!$('#player').size()) {
+          $('body').append('<audio id="player" src="">您的浏览器不支持 audio 标签。</audio>');
+      }
+      const player = document.getElementById("player");
+      return {
+        play: function(link) {
+          player.src = link;
+          player.play();
+        },
+        pause: function() {
+          player.pause();
+        }
       };
     }
   }
