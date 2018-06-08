@@ -2,7 +2,7 @@
  * @Author: Zhang Min 
  * @Date: 2018-04-28 08:57:30 
  * @Last Modified by: Zhang Min
- * @Last Modified time: 2018-06-07 23:31:55
+ * @Last Modified time: 2018-06-08 23:19:52
  */
 
 import './index.less';
@@ -14,10 +14,8 @@ import BetterPicker from 'better-picker';
 import Formatdate from '../../../components/formatDate';
 import Wechat from '../../../components/wehcat';
 import Map from '../../../components/map/index';
-import reg from '../../../components/reg';
 
 $(function () {
-
     class Index {
         constructor() {
             this.userinfo = null;
@@ -106,7 +104,16 @@ $(function () {
                             this.$select2.find('.select-name').text('请选择');
                         }
                         const type2 = this.getSecondType(this.type1);
-                        this.type2wheel.refillColumn(0, type2);
+                        this.type2wheel = new BetterPicker({
+                            data: [
+                                type2
+                            ],
+                            title: '请选择小类'
+                        });
+                        this.type2wheel.on('picker.select', (selectedVal, selectedIndex) => {
+                            this.type2 = selectedVal[0];
+                            this.$select2.find('.select-name').text(this.getTypeById(this.type2).type_name);
+                        })
                     }
                 })
 
@@ -318,14 +325,28 @@ $(function () {
                 this.saveAddress(this.formdata, res => {
                     if (res.success) {
                         this.addressDesc = res.data;
+                        this.addressData = [];
+                        this.addressData.push(res.data);
                         this.$select3.find('.select-name').text(this.formdata.address_txt_1 + this.formdata.address_txt_2);
                         $('#address').hide();
+                        const pickerData = this.getAddressPickerData();
+                        this.addressPicker = new BetterPicker({
+                            data: [
+                                pickerData
+                            ],
+                            title: '请选择地址'
+                        });
+
+                        this.addressPicker.on('picker.select', (selectedVal, selectedIndex) => {
+                            const addressId = selectedVal[0];
+                            this.addressDesc = this.getAddressById(addressId);
+                            this.$select3.find('.select-name').text(this.addressDesc.address_txt_1 + this.addressDesc.address_txt_2);
+                        })
                     }
                 }, btnSaveAddrDisabled);
             })
         }
         markerClickSuccess(marker) {
-            console.log(marker);
             if (marker) {
                 this.map.hide();
                 this.selectProjectData = this.getProjectById(marker.id);
@@ -412,7 +433,7 @@ $(function () {
                 }
             })
         }
-        getAddressPickerData(data) {
+        getAddressPickerData() {
             let arr = [];
             this.addressData.forEach(item => {
                 const obj = {

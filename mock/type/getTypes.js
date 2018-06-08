@@ -29,7 +29,13 @@ function mock() {
         {
           type_id: 'eee',
           type_name: '分类2-1',
-          type_level: '5',
+          type_level: '2',
+          type_parent_id: 'bbb',
+        },
+        {
+          type_id: 'fff',
+          type_name: '分类2-2',
+          type_level: '2',
           type_parent_id: 'bbb',
         }
       ],

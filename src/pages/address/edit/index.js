@@ -2,7 +2,7 @@
  * @Author: Zhang Min 
  * @Date: 2018-04-28 08:57:30 
  * @Last Modified by: Zhang Min
- * @Last Modified time: 2018-05-26 15:54:01
+ * @Last Modified time: 2018-06-08 19:18:59
  */
 
 import './index.less';
@@ -35,7 +35,7 @@ $(function() {
             this.debug = window.location.hostname === 'localhost' ? true : false;
         }
         init() {
-            Wechat.config(true);
+            Wechat.config();
 
             Toolkit.userLogin((data) => {
                 this.getAddress(this.address_id,(res) => {

@@ -2,7 +2,7 @@
  * @Author: 张敏 
  * @Date: 2018-04-17 08:41:11 
  * @Last Modified by: Zhang Min
- * @Last Modified time: 2018-06-08 08:19:48
+ * @Last Modified time: 2018-06-08 23:22:40
  */
 
 /**
@@ -128,7 +128,7 @@ const Toolkit = (function () {
         formData: { relation_key: key, relation_type: type },
         fileObjName: 'postedFile',
         removeCompleted: true,
-        fileSizeLimit: '2048KB',
+        fileSizeLimit: '20240KB',
         buttonClass: 'upload-components',
         uploadScript: 'http://admin.nextdog.cc/Projects/weiLuoXuan/index.php/home/attachment/upload',
         buttonText: '',
