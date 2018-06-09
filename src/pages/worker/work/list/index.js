@@ -2,7 +2,7 @@
  * @Author: Zhang Min 
  * @Date: 2018-04-28 08:57:30 
  * @Last Modified by: Zhang Min
- * @Last Modified time: 2018-06-08 08:22:22
+ * @Last Modified time: 2018-06-10 00:01:58
  */
 
 import './index.less';
@@ -28,16 +28,9 @@ $(function () {
                         title: '待处理',
                         url: '/Work/getWorks',
                         querys: {
-                            work_status: this.workTypes[0]
+                            work_status: this.workTypes[1]
                         }
                     },
-                    // {
-                    //     title: '派单中',
-                    //     url: '/Work/getWorks',
-                    //     querys: {
-                    //         work_status: this.workTypes[1]
-                    //     }
-                    // },
                     {
                         title: '处理中',
                         url: '/Work/getWorks',
@@ -49,14 +42,14 @@ $(function () {
                         title: '已完成',
                         url: '/Work/getWorks',
                         querys: {
-                            work_status: this.workTypes[3]
+                            work_status: this.workTypes[4]
                         }
                     },
                     {
                         title: '延期转单',
                         url: '/Work/getWorks',
                         querys: {
-                            work_status: this.workTypes[4]
+                            work_status: this.workTypes[3]
                         }
                     }
                 ]

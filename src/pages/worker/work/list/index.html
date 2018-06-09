@@ -86,21 +86,21 @@
           </div>
         </div>
         {{/if}}
-        {{if item.work_status === 'to_send'}}
+        {{if item.work_status === 'to_deal'}}
           <div class="ac jiedan" data-id="{{item.work_id}}" data-type="in_deal">
             马上接单
             <div class="icon-box"><div class="icon icon-jiedan"></div></div>
           </div>
         {{/if}}
       </div>
-      {{if item.work_status === 'in_deal'}}
+      {{if item.work_status === 'in_deal' || item.work_status === 'to_delay'}}
         <div class="select-box">
           <div class="select-item" data-type="1" data-id="{{item.work_id}}">延期转单</div>
           <div class="select-item" data-type="2" data-id="{{item.work_id}}">处理完成</div>
         </div>
       {{/if}}
       <div class="footer">
-        <textarea class="text" placeholder="文字备注"></textarea>
+        <textarea class="text" placeholder="文字备注">{{item.work_worker_note}}</textarea>
         <div class="select">
           <div class="select-name">预计完成时间</div>
           <span class="date">请选择</span><div class="icon-down"></div>

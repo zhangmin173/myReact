@@ -2,7 +2,7 @@
  * @Author: Zhang Min 
  * @Date: 2018-04-28 08:57:30 
  * @Last Modified by: Zhang Min
- * @Last Modified time: 2018-06-08 23:19:52
+ * @Last Modified time: 2018-06-09 23:52:23
  */
 
 import './index.less';
@@ -221,15 +221,13 @@ $(function () {
                     url: '/Work/createWork',
                     data: this.workData,
                     success: (res) => {
+                        submitBtn.text('提交');
+                        btnDisabled = false;
                         if (res.success) {
-                            submitBtn.text('提交');
                             window.location.href = '../list/index.html';
                         } else {
                             Pop.show(res.msg).hide();
                         }
-                    },
-                    complete: () => {
-                        btnDisabled = false;
                     }
                 })
             })
